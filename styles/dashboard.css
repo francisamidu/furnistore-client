@@ -1,0 +1,25 @@
+.flex-6 {
+  flex: 6;
+}
+
+.app-bar {
+  height: 70px;
+  top: 0;
+  z-index: 10;
+}
+.sidebar {
+  height: calc(100vh - 70px);
+  top: 50px;
+  z-index: 9;
+}
+.dashboard-content {
+  height: calc(100vh - 70px);
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+}

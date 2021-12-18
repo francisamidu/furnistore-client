@@ -1,9 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=FreeSans:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap");
+
+:root {
+  --color-blue: #000046;
+  --color-green: #159957;
+  --color-blue-variant: #155799;
+  --color-blue-light: #1cb5e0;
+  --color-purplish: #423d9c;
+  --color-purplish-var: #423d9cb7;
+}
+
+.color-blue {
+  color: var(--color-blue);
+}
+.bg-purplish {
+  background-color: var(--color-purplish);
+}
+.bg-purplish-var {
+  background-color: var(--color-purplish-var);
+}
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -13,4 +37,22 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.signup-content input[type="text"],
+.login-content input[type="text"] {
+  transition: border-color ease-in 0.5s;
+  outline: none;
+}
+.signup-content input[type="text"]:focus,
+.login-content input[type="text"]:focus {
+  border-color: var(--color-purplish);
+}
+#name {
+  width: 75%;
+}
+
+#email,
+#password {
+  width: 48%;
 }
