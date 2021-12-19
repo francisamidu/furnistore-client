@@ -59,18 +59,18 @@ const HomeTopBar = () => {
             </a>
           </Link>
           <div className="flex flex-row items-center justify-between">
-            <AiOutlineUser className="text-gray-700 cursor-pointer text-2xl mr-4" />
+            <AiOutlineUser className="transition duration-400 hover:color-purplish cursor-pointer text-2xl mr-4" />
             <div className="mr-6 flex flex-row items-center relative cursor-pointer">
               <div className="badge bg-red-500 text-white flex flex-row items-center justify-center rounded-full">
                 2
               </div>
-              <AiOutlineShoppingCart className="text-gray-700 cursor-pointer text-2xl" />
+              <AiOutlineShoppingCart className="transition duration-400 hover:color-purplish cursor-pointer text-2xl" />
             </div>
             <div className="flex flex-row items-center relative cursor-pointer">
               <div className="badge bg-red-500 text-white flex flex-row items-center justify-center rounded-full">
                 3
               </div>
-              <MdOutlineShoppingBasket className="text-gray-700 cursor-pointer text-2xl" />
+              <MdOutlineShoppingBasket className="transition duration-400 hover:color-purplish cursor-pointer text-2xl" />
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ const HomeHeader = () => {
         </h2>
         <h3 className="font-bold text-2xl uppercase text-orange-500">
           Up to 50% Off
-          <span className="pl-2 font-normal text-white">+ Free Delivery</span>
+          <span className="pl-2 font-normal text-white">+ Free Delivery*</span>
         </h3>
       </div>
     </header>

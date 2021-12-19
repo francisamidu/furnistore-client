@@ -6,15 +6,18 @@
 
 :root {
   --color-blue: #000046;
-  --color-green: #159957;
-  --color-blue-variant: #155799;
-  --color-blue-light: #1cb5e0;
   --color-purplish: #423d9c;
   --color-purplish-var: #423d9cb7;
 }
 
 .color-blue {
   color: var(--color-blue);
+}
+.color-purplish {
+  color: var(--color-purplish);
+}
+.color-purplish-var {
+  color: var(--color-purplish-var);
 }
 .bg-purplish {
   background-color: var(--color-purplish);
