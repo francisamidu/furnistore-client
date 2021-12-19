@@ -1,11 +1,13 @@
 import React from "react";
 import Head from "next/head";
+import HomeTopBar from "../components/HomeTopBar";
+import HomeHeader from "../components/HomeHeader";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Head>
-        <title>Furnistore - You one stop furniture store</title>
+        <title>Furnistore - Luxury Furniture to your liking</title>
         <meta
           name="description"
           content="Furniture store for all your furniture needs"
@@ -14,6 +16,8 @@ export default function Home() {
         <meta name="author" content="Francis Amidu" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    </div>
+      <HomeTopBar />
+      <HomeHeader />
+    </>
   );
 }

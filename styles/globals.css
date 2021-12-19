@@ -56,3 +56,36 @@ a {
 #password {
   width: 48%;
 }
+.home-search-form input[type="text"] {
+  transition: border-color ease-in 0.5s;
+  outline: none;
+}
+.home-search-form input[type="text"]:focus {
+  border-color: var(--color-purplish);
+}
+.home-search {
+  top: 0;
+  right: 0;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: color ease-in 0.5s;
+}
+.home-search-form input[type="text"]:focus + .home-search {
+  color: var(--color-purplish);
+}
+
+.home-header {
+  height: calc(97vh - 105px);
+  background-image: url("/970-80.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.home-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.deal-bar {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
