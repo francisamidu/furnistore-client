@@ -2,8 +2,8 @@ export default interface Product {
   id: string;
   description: string;
   name: string;
-  color: string;
-  size: string;
+  colors: string[];
+  sizes: string[];
   price: number;
   quantity: number;
   image: string;

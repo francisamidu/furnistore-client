@@ -14,6 +14,7 @@ import {
   Operation,
   NextLink,
 } from "@apollo/client";
+import ProductProvider from "../contexts/ProductContext";
 
 import "../styles/globals.css";
 import "../styles/dashboard.css";
@@ -46,13 +47,15 @@ const client = new ApolloClient({
 const App = ({ Component, pageProps }: AppPropsWithLayout): unknown => {
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <PersistGate loading={null} persistor={persistor}>
-      <Provider store={store}>
-        <ApolloProvider client={client}>
-          {getLayout(<Component {...pageProps} />)}
-        </ApolloProvider>
-      </Provider>
-    </PersistGate>
+    <ProductProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <Provider store={store}>
+          <ApolloProvider client={client}>
+            {getLayout(<Component {...pageProps} />)}
+          </ApolloProvider>
+        </Provider>
+      </PersistGate>
+    </ProductProvider>
   );
 };
 

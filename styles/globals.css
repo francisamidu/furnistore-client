@@ -9,6 +9,10 @@
   --color-purplish: #423d9c;
   --color-purplish-var: #423d9cb7;
 }
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 #transition {
   transition: all ease-in-out 0.5s;
 }
@@ -168,4 +172,37 @@ textarea {
   .max-w-480 {
     max-width: 480px;
   }
+}
+.product-item-not-found {
+  min-height: 50vh;
+}
+
+.cart-button {
+  background-color: transparent !important;
+  color: gray !important;
+  padding: 0 !important;
+}
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.custom-selector {
+  display: inline-block;
+  min-width: 250px;
+}
+.custom-selector select {
+  padding: 0.5em 0.75em;
+  border: 1px solid #ddd;
+  appearance: none;
+  outline: none;
+}
+.custom-arrow {
+  pointer-events: none;
+  top: 45%;
+  transform: translateY(-50%);
+}
+.custom-selector select option {
+  padding: 0.75em;
+  border-radius: 5px;
 }
