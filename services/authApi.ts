@@ -18,17 +18,17 @@ export const authApi = createApi({
     baseUrl: `http://localhost:5000/auth`,
   }),
   endpoints: (builder) => ({
-    login: builder.mutation<AuthRequest, Partial<User>>({
+    login: builder.mutation<Partial<User>, AuthRequest>({
       query: ({ email, password }) =>
         createRequest("/login", { email, password }),
       transformResponse: (response: ApiResponse) => response.data,
     }),
-    logout: builder.mutation<AuthRequest, Partial<User>>({
+    logout: builder.mutation<Partial<User>, AuthRequest>({
       query: ({ accessToken, refreshToken }) =>
         createRequest("/logout", { accessToken, refreshToken }),
       transformResponse: (response: ApiResponse) => response.data,
     }),
-    signup: builder.mutation<AuthRequest, Partial<User>>({
+    signup: builder.mutation<Partial<User>, AuthRequest>({
       query: ({ email, password }) =>
         createRequest("/signup", { email, password }),
       transformResponse: (response: ApiResponse) => response.data,

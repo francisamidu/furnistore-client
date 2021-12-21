@@ -11,17 +11,19 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { authApi } from "../services/authApi";
-import rootReducer from "./rootReducer";
-import { authPageSlice } from "./authPage.slice";
+import { authApi, imageUploadApi } from "../services";
+import { errorSlice, authPageSlice, productSlice, rootReducer } from "./index";
 
 export const mainReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
 });
 const combinedReducer = combineReducers({
   ...mainReducer,
+  [errorSlice.name]: errorSlice.reducer,
+  [imageUploadApi.reducerPath]: imageUploadApi.reducer,
+  [productSlice.name]: productSlice.reducer,
+  [authPageSlice.name]: authPageSlice.reducer,
   root: rootReducer,
-  authPage: authPageSlice.reducer,
 });
 const persistConfig = {
   key: "root",

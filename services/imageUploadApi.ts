@@ -2,28 +2,22 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import type { ImageRequest, ImageResponse } from "../interfaces";
 
-const headers = {
-  "Content-Type": "application/json",
-  "x-auth-token": "",
-  method: "PUT",
-};
-
-const createRequest = (url: string, body: FormData) => ({
-  body,
-  headers,
-  url,
-});
-
-const imageUploadApi = createApi({
+export const imageUploadApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000",
   }),
   reducerPath: "image",
   endpoints: (builder) => ({
-    upload: builder.mutation<ImageResponse, ImageRequest>({
-      query: ({ file }) => createRequest("/api/upload-image", file),
+    uploadImage: builder.mutation<ImageResponse, ImageRequest>({
+      query: ({ file }) => ({
+        url: "http://localhost:5000/api/upload-image",
+        body: file,
+        method: "PUT",
+      }),
+      transformResponse: (response: ImageResponse): Promise<any> =>
+        response.data,
     }),
   }),
 });
 
-export const { useUploadMutation } = imageUploadApi;
+export const { useUploadImageMutation } = imageUploadApi;

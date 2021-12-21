@@ -19,7 +19,7 @@ const Dashboard = (props: Partial<PropsWithChildren<AppProps>>) => {
         <meta name="site-name" content="furnistore.netlify.app"></meta>
       </Head>
       <AppBar />
-      <section className="flex flex-row items-center">
+      <section className="flex flex-row">
         <Sidebar />
         {children}
       </section>

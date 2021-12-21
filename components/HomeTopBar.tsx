@@ -5,6 +5,7 @@ import {
   AiOutlineUser,
   AiOutlineShoppingCart,
   AiOutlineSearch,
+  AiOutlineMenu,
 } from "react-icons/ai";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import generateId from "../helpers/generateId";
@@ -49,12 +50,16 @@ const HomeTopBar = () => {
       path: "workstations",
     },
   ]);
+  const [showMenu, setShowMenu] = useState(false);
+  const showMenuHandler = () => {
+    setShowMenu(!showMenu);
+  };
   return (
-    <section className="bg-white sticky top-0 w-full px-8">
+    <section className="bg-white sticky z-10 top-0 w-full px-4 sm:px-8 shadow-md">
       <nav className="border-b-2 border-gray-20">
         <div className="flex flex-row justify-between items-center py-4 md:max-w-screen-xl md:m-auto">
           <Link href="/">
-            <a className="font-bold uppercase text-2xl color-blue">
+            <a className="font-bold text-2xl uppercase text-gray-800 transition duration-400 hover:color-purplish">
               Furnistore
             </a>
           </Link>
@@ -72,11 +77,17 @@ const HomeTopBar = () => {
               </div>
               <MdOutlineShoppingBasket className="transition duration-400 hover:color-purplish cursor-pointer text-2xl" />
             </div>
+            <div className="flex flex-row items-center justify-end ml-4 sm:hidden">
+              <AiOutlineMenu
+                className="text-3xl cursor-pointer"
+                onClick={showMenuHandler}
+              />
+            </div>
           </div>
         </div>
       </nav>
       <div className="p-2">
-        <div className="md:max-w-screen-xl md:m-auto flex flex-row items-center justify-between">
+        <div className="md:max-w-screen-xl md:m-auto sm:flex flex-row items-center justify-between hidden relative">
           <div className="flex flex-row items-center md:w-9/12">
             {links.map((link: ILink) => (
               <HomeLink link={link} key={link.id} />
@@ -93,6 +104,19 @@ const HomeTopBar = () => {
               <AiOutlineSearch className="home-search absolute text-gray-500 text-2xl" />
             </form>
           </div>
+        </div>
+
+        <div
+          id="transition"
+          className={
+            showMenu
+              ? "flex shadow flex-col px-4 absolute top-1/2 right-10  bg-white py-2 rounded-md"
+              : "hidden"
+          }
+        >
+          {links.map((link: ILink) => (
+            <HomeLink link={link} key={link.id} />
+          ))}
         </div>
       </div>
     </section>

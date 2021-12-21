@@ -1,4 +1,10 @@
 export default interface ImageUploadResponse {
-  message: string;
-  imageUrl: string;
+  data: Promise<{
+    message: string;
+    success: boolean;
+    data: {
+      message: string;
+      imageUrl: string;
+    };
+  }>;
 }

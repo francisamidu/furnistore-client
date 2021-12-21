@@ -1,15 +1,23 @@
 import React, { FormEvent, useState } from "react";
 import Button from "../components/Button";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { useLoginMutation } from "../services/authApi";
+import { useAppSelector } from "../hooks/useSelector";
+import { useAppDispatch } from "../hooks/useDispatch";
 
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-
+  const [login, { isError, isLoading, isSuccess, data, error }] =
+    useLoginMutation();
+  const errors = useAppSelector((state) => state.errors);
+  const dispatch = useAppDispatch();
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    try {
+    } catch (error) {}
   };
   return (
     <form

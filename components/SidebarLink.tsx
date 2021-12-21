@@ -2,53 +2,12 @@ import React from "react";
 
 import Link from "next/link";
 import router from "next/router";
-
-import {
-  AiOutlineHome,
-  AiOutlineWallet,
-  AiOutlineBarChart,
-} from "react-icons/ai";
-
-import {
-  MdOutlineReport,
-  MdOutlineTrendingUp,
-  MdOutlineShoppingBag,
-  MdOutlineMessage,
-  MdOutlineAccountCircle,
-  MdOutlineMail,
-  MdOutlineFeedback,
-  MdOutlineManageAccounts,
-} from "react-icons/md";
+import Icon from "./Icon";
 
 const SidebarLink = (props: any) => {
   const { links, link, setLinks } = props;
   const { text, active, id } = link;
-  const renderIcon = (name: string) => {
-    switch (name) {
-      case "Analytics":
-        return <AiOutlineBarChart className="mr-4" />;
-      case "Sales":
-        return <MdOutlineTrendingUp className="mr-4" />;
-      case "Transactions":
-        return <AiOutlineWallet className="mr-4" />;
-      case "Products":
-        return <MdOutlineShoppingBag className="mr-4" />;
-      case "Reports":
-        return <MdOutlineReport className="mr-4" />;
-      case "Messages":
-        return <MdOutlineMessage className="mr-4" />;
-      case "Mail":
-        return <MdOutlineMail className="mr-4" />;
-      case "Feedback":
-        return <MdOutlineFeedback className="mr-4" />;
-      case "Staff":
-        return <MdOutlineAccountCircle className="mr-4" />;
-      case "Customers":
-        return <MdOutlineManageAccounts className="mr-4" />;
-      default:
-        return <AiOutlineHome className="mr-4" />;
-    }
-  };
+
   const redirectLink = (event: Event, text: string, id: string) => {
     event.preventDefault();
     setLinks(() => {
@@ -73,7 +32,7 @@ const SidebarLink = (props: any) => {
         }
         onClick={(event: any) => redirectLink(event, text, id)}
       >
-        {renderIcon(text)}
+        <Icon icon={text} />
         <span className="text-gray-900">{text}</span>
       </a>
     </Link>

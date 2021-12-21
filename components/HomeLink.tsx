@@ -9,7 +9,7 @@ const HomeLink = (props: HomeProps) => {
   const { link } = props;
   return (
     <Link href={`/products?query=${encodeURI(link.path)}`}>
-      <a className="font-bold text-sm uppercase text-gray-800 mr-6 transition duration-400 hover:color-purplish">
+      <a className="font-bold text-base mr-0 sm:text-sm sm:uppercase text-gray-800 sm:mr-6 transition duration-400 hover:color-purplish mb-4 sm:mb-0 normal-case">
         {link.text}
       </a>
     </Link>
