@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import router from "next/router";
 import {
-  AiOutlineDown,
   AiOutlineArrowLeft,
   AiOutlineShoppingCart,
   AiOutlinePlus,
@@ -10,10 +9,10 @@ import {
 } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 
-import type { ProductRequest as IProduct } from "../interfaces";
+import type { Product as IProduct } from "../interfaces";
+import { extractSizes } from "../helpers";
 import Button from "./Button";
 import Link from "next/link";
-
 import Numeral from "../helpers/formatCurrency";
 
 type ProductProps = {
@@ -21,9 +20,13 @@ type ProductProps = {
 };
 const Product = (props: ProductProps) => {
   const {
-    product: { categories, description, image, name, price, quantity, sizes },
+    product: { categories, description, image, name, price, quantity },
+    product: tempProduct,
   } = props;
+  const sizes = extractSizes([tempProduct]);
   const [product, setProduct] = useState<IProduct>({
+    id: "",
+    isDeleted: false,
     categories: [""],
     colors: [""],
     description: "",

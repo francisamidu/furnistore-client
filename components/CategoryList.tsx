@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 import type { Product } from "../interfaces";
-import extractImage from "../helpers/extractImageFromProduct";
+import { extractImage } from "../helpers";
 import CategoryCard from "./CategoryCard";
 
 type CategoryListProps = {

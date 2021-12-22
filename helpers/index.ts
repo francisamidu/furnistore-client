@@ -1,13 +1,8 @@
 import formatCurrency from "./formatCurrency";
-import extractCategories from "./extractCategoriesFromProduct";
-import extractImage from "./extractImageFromProduct";
-import extractSizes from "./extractSizesFromProducts";
+import Extractor from "./Extractor";
 import generateId from "./generateId";
 
-export {
-  formatCurrency,
-  extractCategories,
-  extractImage,
-  extractSizes,
-  generateId,
-};
+export { formatCurrency, generateId };
+
+export const { extractCategories, extractColors, extractImage, extractSizes } =
+  Extractor;

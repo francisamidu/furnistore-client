@@ -5,7 +5,7 @@ import ProductList from "./ProductList";
 import Features from "./Features";
 import Newsletter from "./Newsletter";
 
-import extractCategories from "../helpers/extractCategoriesFromProduct";
+import { extractCategories } from "../helpers";
 import { useProducts } from "../contexts/ProductContext";
 
 const Index = () => {

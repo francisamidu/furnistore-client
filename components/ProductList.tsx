@@ -12,7 +12,7 @@ import NotFound from "./NotFound";
 
 import type { Product as IProduct } from "../interfaces";
 import ProductItem from "./ProductItem";
-import { extractCategories, extractSizes } from "../helpers";
+import { extractColors, extractSizes } from "../helpers";
 import { useProducts } from "../contexts/ProductContext";
 
 type ProductProps = {
@@ -23,6 +23,7 @@ type ProductProps = {
 const ProductList = (props: PropsWithChildren<ProductProps>) => {
   const { products, categoryName, page } = props;
   const localProducts = useProducts();
+  const colors = extractColors(products);
   const [productList, setProductList] = useState<any[]>([]);
 
   const renderHeading = () =>
@@ -42,7 +43,30 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
       </div>
     ) : null;
 
-  const filterProducts = (event: FormEvent<HTMLInputElement>) => {};
+  const filterProducts = (event: FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+    const tempProducts = categoryName ? products : localProducts;
+    let matchingProducts: IProduct[] = [];
+    switch (value) {
+      case "asc":
+        matchingProducts = tempProducts.sort(
+          (productA: IProduct, productB: IProduct) =>
+            productA.price > productB.price ? 1 : -1
+        );
+        break;
+      case "desc":
+        matchingProducts = tempProducts.sort(
+          (productA: IProduct, productB: IProduct) =>
+            productA.price < productB.price ? 1 : -1
+        );
+        break;
+      default:
+        break;
+    }
+    setProductList(matchingProducts);
+  };
 
   const sortProducts = (event: FormEvent<HTMLInputElement>) => {
     const {
@@ -72,9 +96,6 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
   const goHome = () => router.push("/");
 
   const renderProductListing = () => {
-    const categories = extractCategories(products).map(
-      (category: any) => category?.text
-    );
     const filteringTags = [
       {
         text: "newest",
@@ -122,9 +143,9 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
                     onChange={(event: any) => filterProducts(event)}
                   >
                     <option value="">Category</option>
-                    {categories?.map((category: string, index: number) => (
-                      <option key={index} value={category}>
-                        {category}
+                    {colors?.map((color: string, index: number) => (
+                      <option key={index} value={color}>
+                        {color}
                       </option>
                     ))}
                   </select>
