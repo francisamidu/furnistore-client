@@ -124,7 +124,7 @@ const Footer = () => {
   ]);
   const year = new Date().getFullYear();
   return (
-    <footer className="py-8 px-8 bg-white shadow">
+    <footer className="py-8 px-8 bg-white shadow-md">
       <div className="grid grid-cols-1 sm:flex sm:flex-row sm:justify-between">
         {column.map((col: ColumnType, index: number) => (
           <Column column={col} key={col.id} index={index + 1} />
