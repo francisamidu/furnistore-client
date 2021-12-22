@@ -9,10 +9,11 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 
 type ProductItemProps = {
   product: Product;
+  page?: string;
 };
 
 const ProductItem = (props: PropsWithChildren<ProductItemProps>) => {
-  const { product } = props;
+  const { product, page } = props;
   const { id, image, name, price, quantity } = product;
   const renderBadge = () => {
     if (quantity) {
@@ -56,10 +57,22 @@ const ProductItem = (props: PropsWithChildren<ProductItemProps>) => {
     router.push(`/product/${id}`);
   };
   return (
-    <div className="flex-1 min-w-320 sm:my-4 sm:mr-4 my-0 mr-0 product-item">
+    <div
+      className={
+        page === "products"
+          ? `flex-1 max-w-320 sm:my-4 sm:mr-4 my-0 mr-0 product-item`
+          : "flex-1 min-w-320 sm:my-4 sm:mr-4 my-0 mr-0 product-item"
+      }
+    >
       <div className="bg-white rounded">
         <div className="featured-image relative">
-          <Image src={image} width="300" height="200" className="rounded" />
+          <Image
+            src={image}
+            layout="responsive"
+            width={page === "products" ? "320" : "300"}
+            height="200"
+            className="rounded w-full"
+          />
           {renderBadge()}
         </div>
         <div className="px-2 pb-2">

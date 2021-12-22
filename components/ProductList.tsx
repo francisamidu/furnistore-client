@@ -4,6 +4,9 @@ import ProductItem from "./ProductItem";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Link from "next/link";
 
+import { extractCategories, extractSizes } from "../helpers";
+import { BiChevronDown } from "react-icons/bi";
+
 type ProductProps = {
   products: Array<IProduct>;
   categoryName?: string;
@@ -27,25 +30,89 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
         </Link>
       </div>
     ) : null;
-
-  const renderProducts = () => {
+  const filterProducts = () => {};
+  const sortProducts = () => {};
+  const renderProductListing = () => {
+    const categories = extractCategories(products).map(
+      (category: any) => category?.text
+    );
+    const sizes = extractSizes(products);
     switch (page) {
+      case "products":
+        return (
+          <section className="p-4 bg-gray-200 mt-10 sm:mt-0">
+            {renderHeading()}
+            <div className="flex flex-row items-center justify-between">
+              <div className="flex flex-row items-center justify-between">
+                <span>Filter By:</span>
+                <div className="custom-selector w-132 items-center relative text-md mx-4">
+                  <select
+                    className="bg-white rounded cursor-pointer uppercase"
+                    onChange={filterProducts}
+                  >
+                    <option value="">Size</option>
+                    {sizes?.map((size: string, index: number) => (
+                      <option key={index} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                  <BiChevronDown className="absolute custom-arrow right-4 text-gray-500 text-2xl" />
+                </div>
+                <div className="custom-selector w-132 items-center relative text-md">
+                  <select
+                    className="bg-white rounded cursor-pointer uppercase"
+                    onChange={filterProducts}
+                  >
+                    <option value="">Category</option>
+                    {categories?.map((category: string, index: number) => (
+                      <option key={index} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                  <BiChevronDown className="absolute custom-arrow right-4 text-gray-500 text-2xl" />
+                </div>
+              </div>
+              <div className="flex flex row items-center justify-between">
+                <span>Sort by:</span>
+                <div className="custom-selector w-132 items-center relative ml-6 text-md">
+                  <select
+                    className="bg-white rounded cursor-pointer uppercase"
+                    onChange={sortProducts}
+                  >
+                    <option value="">Order</option>
+                    {categories?.map((category: string, index: number) => (
+                      <option key={index} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                  <BiChevronDown className="absolute custom-arrow right-4 text-gray-500 text-2xl" />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row flex-wrap items-center">
+              {products.map((product: IProduct) => (
+                <ProductItem product={product} key={product.id} page={page} />
+              ))}
+            </div>
+          </section>
+        );
       default:
         return (
-          <div className="flex flex-row flex-wrap items-center justify-between">
-            {products.map((product: IProduct) => (
-              <ProductItem product={product} key={product.id} />
-            ))}
-          </div>
+          <section className="p-4 bg-gray-200 mt-10 sm:mt-0">
+            {renderHeading()}
+            <div className="flex flex-row flex-wrap items-center justify-between">
+              {products.map((product: IProduct) => (
+                <ProductItem product={product} key={product.id} />
+              ))}
+            </div>
+          </section>
         );
     }
   };
-  return (
-    <section className="p-4 bg-gray-200 mt-10 sm:mt-0">
-      {renderHeading()}
-      {renderProducts()}
-    </section>
-  );
+  return <>{renderProductListing()}</>;
 };
 
 export default ProductList;

@@ -163,15 +163,15 @@ textarea {
   .category-card {
     min-height: 250px;
   }
-  .max-w-320 {
-    max-width: 320px;
-  }
   .min-w-320 {
     min-width: 320px;
   }
   .max-w-480 {
     max-width: 480px;
   }
+}
+.max-w-320 {
+  max-width: 320px;
 }
 .product-item-not-found {
   min-height: 50vh;
@@ -194,6 +194,7 @@ textarea {
 .custom-selector select {
   padding: 0.5em 0.75em;
   border: 1px solid #ddd;
+  text-transform: capitalize;
   appearance: none;
   outline: none;
 }
@@ -205,4 +206,11 @@ textarea {
 .custom-selector select option {
   padding: 0.75em;
   border-radius: 5px;
+}
+.w-132 {
+  min-width: fit-content !important;
+  min-width: 132px !important;
+}
+.w-132 select {
+  width: 100%;
 }

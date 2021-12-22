@@ -18,7 +18,7 @@ const CategoryCard = (props: PropsWithChildren<CategoryCardProps>) => {
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className="category-card-badge bg-black absolute text-white flex flex-row items-center justify-center uppercase px-2 text-sm font-bold">
-        <Link href={`/products?query=${encodeURI(name)}`}>
+        <Link href={`/products?category=${encodeURI(name)}`}>
           <a>{name}</a>
         </Link>
       </div>
