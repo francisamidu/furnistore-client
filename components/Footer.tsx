@@ -134,7 +134,13 @@ const Footer = () => {
         <h1 className="text-2xl font-bold color-purplish">Furnistore</h1>
         <div className="flex flex-row items-center justify-center">
           {socials.map((social: any) => (
-            <a href={social.link} className="ml-4" key={social.text}>
+            <a
+              href={`http://${social.link}`}
+              className="ml-4"
+              key={social.text}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon icon={social.text} />
             </a>
           ))}

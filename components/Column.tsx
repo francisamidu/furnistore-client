@@ -22,7 +22,6 @@ const Column = (props: ColumnProps) => {
       openTime,
       phone,
     },
-    index,
   } = props;
 
   const renderContent = () => {
@@ -64,9 +63,21 @@ const Column = (props: ColumnProps) => {
       <div className="px-2">
         <ColumnHeading heading={title || ""} />
         <div className="flex flex-col">
-          {links?.map((link: any) => (
-            <ColumnLink link={link} key={link.id} />
-          ))}
+          {links?.map((link: any) => {
+            if (link.text) {
+              return (
+                <a
+                  href="http://blog.furnistore.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-800 transition duration-400 hover:color-purplish font-bold capitalize mb-4"
+                >
+                  {link.text}
+                </a>
+              );
+            }
+            return <ColumnLink link={link} key={link.id} />;
+          })}
         </div>
       </div>
     );
