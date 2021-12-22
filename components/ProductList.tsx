@@ -1,11 +1,19 @@
-import React, { PropsWithChildren } from "react";
-import IProduct from "../interfaces/Product";
-import ProductItem from "./ProductItem";
+import React, {
+  PropsWithChildren,
+  FormEvent,
+  useState,
+  useEffect,
+} from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Link from "next/link";
-
-import { extractCategories, extractSizes } from "../helpers";
+import router from "next/router";
 import { BiChevronDown } from "react-icons/bi";
+import NotFound from "./NotFound";
+
+import type { Product as IProduct } from "../interfaces";
+import ProductItem from "./ProductItem";
+import { extractCategories, extractSizes } from "../helpers";
+import { useProducts } from "../contexts/ProductContext";
 
 type ProductProps = {
   products: Array<IProduct>;
@@ -14,6 +22,9 @@ type ProductProps = {
 };
 const ProductList = (props: PropsWithChildren<ProductProps>) => {
   const { products, categoryName, page } = props;
+  const localProducts = useProducts();
+  const [productList, setProductList] = useState<any[]>([]);
+
   const renderHeading = () =>
     categoryName ? (
       <div className="flex flex-row items-center justify-between">
@@ -30,12 +41,58 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
         </Link>
       </div>
     ) : null;
-  const filterProducts = () => {};
-  const sortProducts = () => {};
+
+  const filterProducts = (event: FormEvent<HTMLInputElement>) => {};
+
+  const sortProducts = (event: FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+    const tempProducts = categoryName ? products : localProducts;
+    let matchingProducts: IProduct[] = [];
+    switch (value) {
+      case "asc":
+        matchingProducts = tempProducts.sort(
+          (productA: IProduct, productB: IProduct) =>
+            productA.price < productB.price ? 1 : -1
+        );
+        break;
+      case "desc":
+        matchingProducts = tempProducts.sort(
+          (productA: IProduct, productB: IProduct) =>
+            productA.price > productB.price ? 1 : -1
+        );
+        break;
+      default:
+        break;
+    }
+    setProductList(matchingProducts);
+  };
+
+  const goHome = () => router.push("/");
+
   const renderProductListing = () => {
     const categories = extractCategories(products).map(
       (category: any) => category?.text
     );
+    const filteringTags = [
+      {
+        text: "newest",
+        value: "new",
+      },
+      {
+        text: "oldest",
+        value: "old",
+      },
+      {
+        text: "price(asc)",
+        value: "asc",
+      },
+      {
+        text: "price(desc)",
+        value: "desc",
+      },
+    ];
     const sizes = extractSizes(products);
     switch (page) {
       case "products":
@@ -48,7 +105,7 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
                 <div className="custom-selector w-132 items-center relative text-md mx-4">
                   <select
                     className="bg-white rounded cursor-pointer uppercase"
-                    onChange={filterProducts}
+                    onChange={(event: any) => filterProducts(event)}
                   >
                     <option value="">Size</option>
                     {sizes?.map((size: string, index: number) => (
@@ -62,7 +119,7 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
                 <div className="custom-selector w-132 items-center relative text-md">
                   <select
                     className="bg-white rounded cursor-pointer uppercase"
-                    onChange={filterProducts}
+                    onChange={(event: any) => filterProducts(event)}
                   >
                     <option value="">Category</option>
                     {categories?.map((category: string, index: number) => (
@@ -76,15 +133,15 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
               </div>
               <div className="flex flex row items-center justify-between">
                 <span>Sort by:</span>
-                <div className="custom-selector w-132 items-center relative ml-6 text-md">
+                <div className="custom-selector w-132 items-center relative mx-4 text-md">
                   <select
                     className="bg-white rounded cursor-pointer uppercase"
-                    onChange={sortProducts}
+                    onChange={(event: any) => sortProducts(event)}
                   >
                     <option value="">Order</option>
-                    {categories?.map((category: string, index: number) => (
-                      <option key={index} value={category}>
-                        {category}
+                    {filteringTags?.map((tag: any, index: number) => (
+                      <option key={index} value={tag.value}>
+                        {tag.text}
                       </option>
                     ))}
                   </select>
@@ -93,9 +150,16 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
               </div>
             </div>
             <div className="flex flex-row flex-wrap items-center">
-              {products.map((product: IProduct) => (
-                <ProductItem product={product} key={product.id} page={page} />
-              ))}
+              {productList?.length ? (
+                productList.map((product: IProduct) => (
+                  <ProductItem product={product} key={product.id} page={page} />
+                ))
+              ) : (
+                <NotFound
+                  text="Whoops! No products in this category"
+                  onClick={goHome}
+                />
+              )}
             </div>
           </section>
         );
@@ -112,6 +176,9 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
         );
     }
   };
+  useEffect(() => {
+    setProductList(products);
+  }, [products]);
   return <>{renderProductListing()}</>;
 };
 

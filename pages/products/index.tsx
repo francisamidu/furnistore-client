@@ -5,6 +5,7 @@ import { NextComponentType } from "next";
 
 import HomeLayout from "../../components/HomeLayout";
 import ProductList from "../../components/ProductList";
+import NotFound from "../../components/NotFound";
 
 import { useProducts } from "../../contexts/ProductContext";
 import type { Product } from "../../interfaces";
@@ -24,6 +25,9 @@ const Products = () => {
       setLocalProducts(products);
     }
   }, [products, query]);
+  const goHome = () => {
+    router.push("/");
+  };
   return (
     <section className="py-4 my-4">
       {localProducts?.length ? (
@@ -33,7 +37,10 @@ const Products = () => {
           products={localProducts}
         />
       ) : (
-        <h1 className="text-center text-2xl capitalize">No product to show</h1>
+        <NotFound
+          text="Whoops! No products in this category"
+          onClick={goHome}
+        />
       )}
     </section>
   );

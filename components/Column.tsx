@@ -71,6 +71,7 @@ const Column = (props: ColumnProps) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-800 transition duration-400 hover:color-purplish font-bold capitalize mb-4"
+                  key={link.id}
                 >
                   {link.text}
                 </a>

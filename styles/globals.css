@@ -173,7 +173,7 @@ textarea {
 .max-w-320 {
   max-width: 320px;
 }
-.product-item-not-found {
+.item-not-found {
   min-height: 50vh;
 }
 
@@ -200,7 +200,7 @@ textarea {
 }
 .custom-arrow {
   pointer-events: none;
-  top: 45%;
+  top: 47%;
   transform: translateY(-50%);
 }
 .custom-selector select option {
@@ -209,7 +209,7 @@ textarea {
 }
 .w-132 {
   min-width: fit-content !important;
-  min-width: 132px !important;
+  min-width: 140px !important;
 }
 .w-132 select {
   width: 100%;
