@@ -54,13 +54,13 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
       case "asc":
         matchingProducts = tempProducts.sort(
           (productA: IProduct, productB: IProduct) =>
-            productA.price < productB.price ? 1 : -1
+            productA.price > productB.price ? 1 : -1
         );
         break;
       case "desc":
         matchingProducts = tempProducts.sort(
           (productA: IProduct, productB: IProduct) =>
-            productA.price > productB.price ? 1 : -1
+            productA.price < productB.price ? 1 : -1
         );
         break;
       default:
@@ -155,10 +155,12 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
                   <ProductItem product={product} key={product.id} page={page} />
                 ))
               ) : (
-                <NotFound
-                  text="Whoops! No products in this category"
-                  onClick={goHome}
-                />
+                <section className="justify-self-center w-full">
+                  <NotFound
+                    text="Whoops! No products in this category"
+                    onClick={goHome}
+                  />
+                </section>
               )}
             </div>
           </section>
