@@ -11,9 +11,9 @@ const Button = ({ text, onClick, icon, className }: ButtonProps) => {
   const handleClick = typeof onClick === "function" ? onClick : () => {};
   const getClasses = () => {
     if (className) {
-      return `w-max h-12 px-6 mt-4 rounded-md text-white bg-purplish flex flex-row items-center justify-between hover:bg-purplish-var transition duration-500 ${className}`;
+      return `button-black w-max h-12 px-6 mt-4 rounded-md text-white bg-purplish flex flex-row items-center justify-between hover:bg-purplish-var transition duration-500 ${className}`;
     }
-    return "w-max h-12 px-6 mt-4 rounded-md text-white bg-purplish flex flex-row items-center justify-between hover:bg-purplish-var transition duration-500";
+    return "button-black w-max h-12 px-6 mt-4 rounded-md text-white bg-purplish flex flex-row items-center justify-between hover:bg-purplish-var transition duration-500";
   };
   return (
     <button className={getClasses()} onClick={handleClick}>

@@ -12,9 +12,9 @@ const HomeHeader = () => {
         <h2 className="sm:text-9xl text-4xl uppercase py-4">
           Mega <span className="font-bold">Sale</span>
         </h2>
-        <h3 className="font-bold text-1xl text-2xl uppercase text-orange-500">
+        <h3 className="font-bold text-1xl text-2xl uppercase text-white">
           Up to 50% Off
-          <span className="pl-2 font-normal text-white">+ Free Delivery*</span>
+          <span className="pl-2 font-normal">+ Free Delivery*</span>
         </h3>
       </div>
     </header>

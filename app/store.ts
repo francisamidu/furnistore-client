@@ -12,13 +12,20 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import { authApi, imageUploadApi } from "../services";
-import { errorSlice, authPageSlice, productSlice, rootReducer } from "./index";
+import {
+  errorSlice,
+  authPageSlice,
+  cartSlice,
+  productSlice,
+  rootReducer,
+} from "./index";
 
-export const mainReducer = combineReducers({
+const mainReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
 });
 const combinedReducer = combineReducers({
   ...mainReducer,
+  [cartSlice.name]: cartSlice.reducer,
   [errorSlice.name]: errorSlice.reducer,
   [imageUploadApi.reducerPath]: imageUploadApi.reducer,
   [productSlice.name]: productSlice.reducer,

@@ -131,6 +131,9 @@ textarea {
   transform: translateY(-50%);
   content: "";
 }
+.button-black:hover svg {
+  fill: #000 !important;
+}
 .featured-product-badge {
   bottom: 3.2%;
   left: 0;
@@ -156,6 +159,9 @@ textarea {
   background-size: cover;
   min-height: 200px;
 }
+.category-card:first-child {
+  margin-right: 1em;
+}
 .feature:last-child {
   border: none;
 }
@@ -172,6 +178,15 @@ textarea {
 }
 .max-w-320 {
   max-width: 320px;
+}
+.min-w-568 {
+  min-width: 568px;
+}
+.min-h-320 {
+  min-height: 320px;
+}
+.min-h-370 {
+  min-height: 370px;
 }
 .item-not-found {
   min-height: 50vh;

@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from "react";
 
 import Link from "next/link";
+import Image from "next/image";
 
 type CategoryCardProps = {
   category: {
@@ -13,13 +14,14 @@ const CategoryCard = (props: PropsWithChildren<CategoryCardProps>) => {
   const { category } = props;
   const { name, image } = category;
   return (
-    <div
-      className="block sm:mr-2 mr-0 relative category-card min-w-320 mb-2 sm:mb-0"
-      style={{ backgroundImage: `url(${image})` }}
-    >
-      <div className="category-card-badge bg-black absolute text-white flex flex-row items-center justify-center uppercase px-2 text-sm font-bold">
+    <div className="block sm:mr-2 mr-0 relative category-card min-w-320 mb-2 sm:mb-0 min-h-370">
+      <div className="relative w-full min-h-320">
+        <Image src={image} width="200" height="200" layout="fill" />
+      </div>
+      <div className="div absolute -bottom-4 left-0 w-full">
+        <h1 className="text-2xl mt-2">Save up to 40% on {name} products</h1>
         <Link href={`/products?category=${encodeURI(name)}`}>
-          <a>{name}</a>
+          <a className="underline">Shop for {name} products</a>
         </Link>
       </div>
     </div>

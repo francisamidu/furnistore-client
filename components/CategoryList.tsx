@@ -19,7 +19,7 @@ type CategoryListProps = {
 const CategoryList = (props: CategoryListProps) => {
   const { categories, products } = props;
   const snippetCategories = categories
-    .slice(0, 5)
+    .slice(0, 2)
     .map((category: { id: string; text: string }, index: number) => {
       return {
         name: category.text,
