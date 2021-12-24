@@ -79,7 +79,7 @@ const ProductItem = (props: PropsWithChildren<ProductItemProps>) => {
           {renderContent()}
           <Button
             text="View Item"
-            className="bg-black border-4 rounded-md hover:bg-white hover:text-black border-black transition duration-300"
+            className="bg-black border-4 rounded-md hover:bg-white hover:text-black border-black transition duration-300 button-black"
             icon={
               <AiOutlineArrowRight className="text-white hover:text-black" />
             }

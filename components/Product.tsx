@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Image from "next/image";
 import router from "next/router";
-import {
-  AiOutlineArrowLeft,
-  AiOutlineShoppingCart,
-  AiOutlinePlus,
-  AiOutlineMinus,
-} from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineShoppingCart } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 
-import type { Product as IProduct } from "../interfaces";
-import { extractSizes } from "../helpers";
+import type { CartItem, Product as IProduct } from "../interfaces";
+import { extractColors, extractSizes, formatCurrency } from "../helpers";
 import Button from "./Button";
 import Link from "next/link";
-import Numeral from "../helpers/formatCurrency";
+import { ProductProps } from "../types";
+import Quantity from "./Quantity";
+import { useAppDispatch } from "../hooks/useDispatch";
+import { addProductToCart } from "../app/cart.slice";
 
-type ProductProps = {
-  product: IProduct;
-};
 const Product = (props: ProductProps) => {
+  //Local state
   const {
     product: { categories, description, image, name, price, quantity },
     product: tempProduct,
   } = props;
   const sizes = extractSizes([tempProduct]);
+  const colors = extractColors([tempProduct]);
   const [product, setProduct] = useState<IProduct>({
     id: "",
     isDeleted: false,
@@ -35,6 +32,17 @@ const Product = (props: ProductProps) => {
     price: 0,
     quantity: 0,
     sizes: [""],
+  });
+  const [cartProduct, setCartProduct] = useState<CartItem>({
+    categories: [""],
+    color: "",
+    description: "",
+    id: "",
+    image: "",
+    name: "",
+    price: 0,
+    quantity: 0,
+    size: "",
   });
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -48,16 +56,40 @@ const Product = (props: ProductProps) => {
   };
   const goHome = () => router.push("/");
 
-  useEffect(() => {
+  // For dispatching actions to the store
+  const dispatch = useAppDispatch();
+
+  //Add to cart button click handler
+  const addToCart = () => {
+    dispatch(addProductToCart(cartProduct));
+    setCartProductAndProduct();
+  };
+
+  const setCartProductAndProduct = () => {
     setProduct({
       ...props.product,
       quantity: 0,
     });
+    setCartProduct({
+      categories: props.product.categories,
+      color: "",
+      description: props.product.description,
+      id: props.product.id,
+      image: props.product.image,
+      name: props.product.name,
+      price: props.product.price,
+      quantity: 0,
+      size: "",
+    });
+  };
+
+  useEffect(() => {
+    setCartProductAndProduct();
   }, [props.product]);
 
   const getTotalPrice = () => {
     const number = totalPrice || 0;
-    return Numeral.formatCurrency(number);
+    return formatCurrency(number);
   };
 
   const addToQuantity = () => {
@@ -69,6 +101,10 @@ const Product = (props: ProductProps) => {
       ...product,
       quantity: itemQuantity ? itemQuantity + 1 : 1,
     });
+    setCartProduct({
+      ...cartProduct,
+      quantity: itemQuantity ? itemQuantity + 1 : 1,
+    });
   };
 
   const removeFromQuantity = () => {
@@ -76,6 +112,20 @@ const Product = (props: ProductProps) => {
     setProduct({
       ...product,
       quantity: quantity ? quantity - 1 : 0,
+    });
+    setCartProduct({
+      ...cartProduct,
+      quantity: quantity ? quantity - 1 : 0,
+    });
+  };
+
+  const setValue = (event: ChangeEvent<HTMLSelectElement>) => {
+    const {
+      target: { name, value },
+    } = event;
+    setCartProduct({
+      ...cartProduct,
+      [name]: value,
     });
   };
   useEffect(() => {
@@ -94,7 +144,10 @@ const Product = (props: ProductProps) => {
       <div className="col-start-2 col-end-3 px-4">
         <div className="mb-4 flex flex-row items-center">
           {categories.map((category: string) => (
-            <Link href={encodeURI(`/products?q=${categories}`)} key={category}>
+            <Link
+              href={encodeURI(`/products?category=${category}`)}
+              key={category}
+            >
               <a className="bg-green-500 text-white text-xs uppercase mr-4 py-1 px-2 rounded font-bold">
                 {category}
               </a>
@@ -107,34 +160,29 @@ const Product = (props: ProductProps) => {
             <div>
               <h2 className="text-1xl font-bold">Price</h2>
               <p className="text-green-500 uppercase font-bold">
-                {Numeral.formatCurrency(price)}
+                {formatCurrency(price)}
               </p>
             </div>
             <div>
               <h2 className="text-1xl font-bold text-center">Quantity</h2>
-              <div className="quantity flex flex-row items-center justify-center">
-                <AiOutlineMinus
-                  className={
-                    quantity > 0
-                      ? "cursor-pointer text-black"
-                      : "cursor-pointer text-gray-400"
-                  }
-                  onClick={() => removeFromQuantity()}
-                />
-                <span className="font-bold mx-4">{product.quantity}</span>
-                <AiOutlinePlus
-                  className={
-                    quantity === product.quantity
-                      ? "disabled cursor-pointer text-gray-400"
-                      : "cursor-pointer text-black"
-                  }
-                  onClick={() => addToQuantity()}
-                />
-              </div>
+              <Quantity
+                addToQuantity={addToQuantity}
+                productQuantity={product.quantity}
+                quantity={quantity}
+                removeFromQuantity={removeFromQuantity}
+              />
             </div>
-            <div className="custom-selector flex flex-row items-center relative text-md">
-              <span className="font-bold w-1/2">Choose size</span>
-              <select className="bg-white rounded w-1/2 cursor-pointer uppercase">
+          </div>
+          <div className="flex flex-row items-center justify-between mt-4">
+            <div className="custom-selector flex flex-row items-center relative text-md mr-2">
+              <select
+                className="bg-white rounded w-full cursor-pointer uppercase"
+                name="size"
+                onChange={setValue}
+              >
+                <option value="" className="font-bold">
+                  Choose size
+                </option>
                 {sizes.map((size: string, index: number) => (
                   <option key={index} value={size}>
                     {size}
@@ -143,16 +191,33 @@ const Product = (props: ProductProps) => {
               </select>
               <BiChevronDown className="absolute custom-arrow right-4 text-gray-500 text-2xl" />
             </div>
+            <div className="custom-selector flex flex-row items-center relative text-md ml-2">
+              <select
+                className="bg-white rounded w-full cursor-pointer uppercase"
+                name="color"
+                onChange={setValue}
+              >
+                <option value="" className="font-bold">
+                  Choose Color
+                </option>
+                {colors.map((color: string, index: number) => (
+                  <option key={index} value={color}>
+                    {color}
+                  </option>
+                ))}
+              </select>
+              <BiChevronDown className="absolute custom-arrow right-4 text-gray-500 text-2xl" />
+            </div>
           </div>
           <div className="my-4">
-            <h3 className="border-b-2 border-gray-200 text-1xl font-bold font-bold py-2">
+            <h3 className="border-b-2 border-gray-200 text-1xl font-bold py-2">
               Details
             </h3>
             <p className="text-gray-500 py-4">{description}</p>
           </div>
           <div className="flex flex-row items-center justify-between">
             <div className="mr-2">
-              <p className="font-bold text-1xl font-bold">Total Price</p>
+              <p className="text-1xl font-bold">Total Price</p>
               <p className="font-bold text-1xl text-green-500">
                 {getTotalPrice()}
               </p>
@@ -160,6 +225,7 @@ const Product = (props: ProductProps) => {
             <Button
               text="Add to Cart"
               className="cart-button"
+              onClick={() => addToCart()}
               icon={<AiOutlineShoppingCart className="text-gray-500" />}
             />
             <Button

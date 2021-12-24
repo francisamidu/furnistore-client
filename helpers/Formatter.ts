@@ -1,4 +1,17 @@
-class Numeral {
+import dayJs from "dayjs";
+class Formatter {
+  static formatDate(date: string | Date) {
+    const newDate = dayJs(date).format("DD MMM YYYY");
+    return newDate;
+  }
+  static formatDateAndTime(date: string | Date) {
+    const newDate = dayJs(date).format("DD MMM YY, HH:MM");
+    return newDate;
+  }
+  static formatRelativeDate(date: string | Date) {
+    const newDate = dayJs(date).startOf("month").format("YYYY-MM-DD");
+    return newDate;
+  }
   static formatCurrency(number: any, currency?: string) {
     const currencySign = currency || "$";
     try {
@@ -28,4 +41,4 @@ class Numeral {
   }
 }
 
-export default Numeral;
+export default Formatter;

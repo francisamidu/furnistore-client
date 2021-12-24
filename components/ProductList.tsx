@@ -152,7 +152,7 @@ const ProductList = (props: PropsWithChildren<ProductProps>) => {
                   <BiChevronDown className="absolute custom-arrow right-4 text-gray-500 text-2xl" />
                 </div>
               </div>
-              <div className="flex flex row items-center justify-between">
+              <div className="flex flex-row items-center justify-between">
                 <span>Sort by:</span>
                 <div className="custom-selector w-132 items-center relative mx-4 text-md">
                   <select

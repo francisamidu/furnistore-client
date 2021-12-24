@@ -11,6 +11,7 @@ import { MdOutlineShoppingBasket } from "react-icons/md";
 import generateId from "../helpers/generateId";
 import ILink from "../interfaces/HomeLink";
 import HomeLink from "./HomeLink";
+import { useAppSelector } from "../hooks/useSelector";
 
 const HomeTopBar = () => {
   const [links, setLinks] = useState<Array<ILink>>([
@@ -54,9 +55,11 @@ const HomeTopBar = () => {
   const showMenuHandler = () => {
     setShowMenu(!showMenu);
   };
+  const cart = useAppSelector((state) => state.cart);
+  const { length } = cart;
   return (
     <section className="bg-white sticky z-10 top-0 w-full px-4 sm:px-8 shadow-md">
-      <nav className="border-b-2 border-gray-20">
+      <nav className="sm:border-b-2 sm:border-gray-200 border-0">
         <div className="flex flex-row justify-between items-center py-4 md:max-w-screen-xl md:m-auto">
           <Link href="/">
             <a className="font-bold text-2xl uppercase text-gray-800 transition duration-400 hover:color-purplish">
@@ -66,10 +69,16 @@ const HomeTopBar = () => {
           <div className="flex flex-row items-center justify-between">
             <AiOutlineUser className="transition duration-400 hover:color-purplish cursor-pointer text-2xl mr-4" />
             <div className="mr-6 flex flex-row items-center relative cursor-pointer">
-              <div className="badge bg-red-500 text-white flex flex-row items-center justify-center rounded-full">
-                2
-              </div>
-              <AiOutlineShoppingCart className="transition duration-400 hover:color-purplish cursor-pointer text-2xl" />
+              {length > 0 ? (
+                <div className="badge bg-red-500 text-white flex flex-row items-center justify-center rounded-full">
+                  {length}
+                </div>
+              ) : null}
+              <Link href="/tag?page=cart">
+                <a>
+                  <AiOutlineShoppingCart className="transition duration-400 hover:color-purplish cursor-pointer text-2xl" />
+                </a>
+              </Link>
             </div>
             <div className="flex flex-row items-center relative cursor-pointer">
               <div className="badge bg-red-500 text-white flex flex-row items-center justify-center rounded-full">
@@ -86,7 +95,7 @@ const HomeTopBar = () => {
           </div>
         </div>
       </nav>
-      <div className="p-2">
+      <div className="p-0 sm:p-2">
         <div className="md:max-w-screen-xl md:m-auto sm:flex flex-row items-center justify-between hidden relative">
           <div className="flex flex-row items-center md:w-9/12">
             {links.map((link: ILink) => (
