@@ -1,16 +1,12 @@
 import { Product } from "../interfaces";
+import Address from "./Address";
 
 type Order = {
   _id: string;
   userId: string;
   products: Product[];
   amount: number;
-  address: {
-    phone: string;
-    city: string;
-    address: string;
-    isDeleted: boolean;
-  };
+  address: Address;
   status: string;
   isDeleted: boolean;
 };

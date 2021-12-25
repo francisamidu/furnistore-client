@@ -5,7 +5,14 @@ import AuthIllustration from "../public/authentication.svg";
 import Button from "../components/Button";
 import Head from "next/head";
 
+import { useSignupMutation } from "../services/authApi";
+import { validateEmail, validatePassword } from "../helpers";
+import { useAppDispatch } from "../hooks/useDispatch";
+import { addError, clearErrors } from "../app/error.slice";
+
 const Signup = () => {
+  const dispatch = useAppDispatch();
+  const [signup, response] = useSignupMutation();
   const [user, setUser] = useState({
     email: "",
     name: "",
@@ -15,6 +22,25 @@ const Signup = () => {
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    try {
+      //Validates fields first before proceeding
+      const validEmail = validateEmail(user.email);
+      const validPassword = validatePassword(user.password);
+      if (!validEmail) {
+        dispatch(addError("Email is not valid"));
+      } else {
+        dispatch(clearErrors());
+      }
+      if (!validPassword) {
+        dispatch(
+          addError(
+            "A strong password has: at least 8 characters,1 number,1 lowercase character, 1 uppercase letter, 1 special character"
+          )
+        );
+      } else {
+        dispatch(clearErrors());
+      }
+    } catch (error) {}
   };
   return (
     <section>

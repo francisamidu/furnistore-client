@@ -16,8 +16,15 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { authApi, imageUploadApi, productsApi } from "../services";
-import middlewares from "../middlewares";
+import {
+  authApi,
+  cartApi,
+  imageUploadApi,
+  ordersApi,
+  productsApi,
+  salesApi,
+  usersApi,
+} from "../services";
 
 import {
   errorSlice,
@@ -32,12 +39,16 @@ const mainReducer = combineReducers({
 });
 const combinedReducer = combineReducers({
   ...mainReducer,
+  [authPageSlice.name]: authPageSlice.reducer,
   [cartSlice.name]: cartSlice.reducer,
+  [cartApi.reducerPath]: cartApi.reducer,
   [errorSlice.name]: errorSlice.reducer,
   [imageUploadApi.reducerPath]: imageUploadApi.reducer,
+  [ordersApi.reducerPath]: ordersApi.reducer,
   [productSlice.name]: productSlice.reducer,
   [productsApi.reducerPath]: productsApi.reducer,
-  [authPageSlice.name]: authPageSlice.reducer,
+  [salesApi.reducerPath]: salesApi.reducer,
+  [usersApi.reducerPath]: usersApi.reducer,
   root: rootReducer,
 });
 const persistConfig = {

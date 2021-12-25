@@ -1,4 +1,5 @@
 export default interface ProductRequest {
+  _id: string;
   description: string;
   name: string;
   colors: string[];
@@ -7,4 +8,5 @@ export default interface ProductRequest {
   quantity: number;
   image: string | any;
   categories: Array<string>;
+  category?: string;
 }

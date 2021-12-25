@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { graphqlRequestBaseQuery } from "@rtk-query/graphql-request-base-query";
 import type { CartItem } from "../interfaces";
 import { gql } from "@apollo/client";
+import { CartRequest } from "../types";
 
 export const cartApi = createApi({
   baseQuery: graphqlRequestBaseQuery({
@@ -9,7 +10,7 @@ export const cartApi = createApi({
   }),
   reducerPath: "cartItems",
   endpoints: (builder) => ({
-    getCartItems: builder.query<
+    getCart: builder.query<
       CartItem,
       {
         cartId: string;
@@ -36,7 +37,88 @@ export const cartApi = createApi({
         },
       }),
     }),
+    getCarts: builder.query<CartItem, any>({
+      query: () => ({
+        document: gql`
+          query carts {
+            carts {
+              _id
+              colors
+              categories
+              description
+              image
+              price
+              quantity
+              sizes
+              name
+            }
+          }
+        `,
+      }),
+    }),
+    createCart: builder.query<CartItem, CartRequest>({
+      query: ({ products, userId }) => ({
+        document: gql`
+          mutation createCart(
+            userId: ID!
+            products: [Object]!        
+          ) {
+            createCart {
+              _id        
+              products        
+            }
+          }
+        `,
+        variables: {
+          products,
+          userId,
+        },
+      }),
+    }),
+    deleteCart: builder.query<CartItem, CartRequest>({
+      query: ({ cartId }) => ({
+        document: gql`
+          mutation createCart(
+            cartId:ID!       
+          ) {
+            deleteCart {
+              _id        
+            }
+          }
+        `,
+        variables: {
+          cartId,
+        },
+      }),
+    }),
+    updateCart: builder.query<CartItem, CartRequest>({
+      query: ({ cartId, products, userId }) => ({
+        document: gql`
+          mutation updateCart(
+            cartId
+            userId: ID!
+            products: [Object]!        
+          ) {
+            updateCart {
+              _id        
+              products        
+            }
+          }
+        `,
+        variables: {
+          cartId,
+          products,
+          userId,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetCartItemsQuery } = cartApi;
+export const {
+  useCreateCartQuery,
+  useDeleteCartQuery,
+  useGetCartQuery,
+  useGetCartsQuery,
+  useUpdateCartQuery,
+} = cartApi;

@@ -19,7 +19,7 @@ const reducers = {
     };
     return [...newState, error];
   },
-  clearErrors: (state: Array<Error>, action: PayloadAction<any>) => {
+  clearErrors: (state: Array<Error>) => {
     return [];
   },
 };
