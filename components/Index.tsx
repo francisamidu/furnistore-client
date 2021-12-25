@@ -7,10 +7,13 @@ import Newsletter from "./Newsletter";
 
 import { extractCategories } from "../helpers";
 import { useProducts } from "../contexts/ProductContext";
+import { useGetProductsQuery } from "../services/productsApi";
 
 const Index = () => {
   const featuredProducts = useProducts();
   const categories = extractCategories(featuredProducts);
+  const query = useGetProductsQuery({});
+  console.log(query);
   return (
     <>
       <HomeHeader />
