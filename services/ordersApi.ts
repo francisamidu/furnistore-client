@@ -9,7 +9,7 @@ export const ordersApi = createApi({
   }),
   reducerPath: "orders",
   endpoints: (builder) => ({
-    cancelOrder: builder.query<Order, OrderRequest>({
+    cancelOrder: builder.query<Order, any>({
       query: ({ orderId }) => ({
         document: gql`
           mutation cancelOrder(
@@ -25,7 +25,7 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    createOrder: builder.query<Order, OrderRequest>({
+    createOrder: builder.query<Order, any>({
       query: ({ address, amount, products, userId }) => ({
         document: gql`
           mutation createOrder(
@@ -51,7 +51,7 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    deleteOrder: builder.query<Order, OrderRequest>({
+    deleteOrder: builder.query<Order, any>({
       query: ({ orderId }) => ({
         document: gql`
           mutation deleteOrder(
@@ -107,7 +107,7 @@ export const ordersApi = createApi({
         `,
       }),
     }),
-    getOrderByUser: builder.query<Order, { userId: String }>({
+    getOrderByUser: builder.query<Order, any>({
       query: ({ userId }) => ({
         document: gql`
           query orderByUser(
@@ -126,7 +126,7 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    getOrdersByUser: builder.query<Order, { userId: String }>({
+    getOrdersByUser: builder.query<Order, any>({
       query: ({ userId }) => ({
         document: gql`
           query ordersByUser(
@@ -145,7 +145,7 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    updateOrder: builder.query<Order, OrderRequest>({
+    updateOrder: builder.query<Order, any>({
       query: ({ address, amount, products, userId, orderId }) => ({
         document: gql`
           mutation updateOrder(

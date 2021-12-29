@@ -9,7 +9,7 @@ export const authApi = createApi({
     baseUrl: `http://localhost:5000/auth`,
   }),
   endpoints: (builder) => ({
-    login: builder.mutation<Partial<User>, AuthRequest>({
+    login: builder.mutation<Partial<User>, any>({
       query: ({ email, password }) => ({
         headers: { "Content-Type": "application/json" },
         body: {
@@ -19,9 +19,8 @@ export const authApi = createApi({
         method: "POST",
         url: "/login",
       }),
-      transformResponse: (response: ApiResponse) => response.data,
     }),
-    logout: builder.mutation<Partial<User>, AuthRequest>({
+    logout: builder.mutation<Partial<User>, any>({
       query: ({ accessToken, refreshToken }) => ({
         headers: { "Content-Type": "application/json" },
         body: {
@@ -31,9 +30,8 @@ export const authApi = createApi({
         method: "POST",
         url: "/logout",
       }),
-      transformResponse: (response: ApiResponse) => response.data,
     }),
-    signup: builder.mutation<Partial<User>, AuthRequest>({
+    signup: builder.mutation<Partial<User>, any>({
       query: ({ email, password }) => ({
         headers: { "Content-Type": "application/json" },
         body: {
@@ -43,7 +41,6 @@ export const authApi = createApi({
         method: "POST",
         url: "/signup",
       }),
-      transformResponse: (response: ApiResponse) => response.data,
     }),
   }),
 });

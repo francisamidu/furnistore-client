@@ -10,7 +10,7 @@ export const productsApi = createApi({
   }),
   reducerPath: "products",
   endpoints: (builder) => ({
-    createProduct: builder.query<Product, ProductRequest>({
+    createProduct: builder.query<Product, any>({
       query: ({
         categories,
         colors,
@@ -23,6 +23,7 @@ export const productsApi = createApi({
       }) => ({
         document: gql`
           mutation createProduct(
+            product:{
               _id:ID
               colors: [String]
               categories: [String]
@@ -32,7 +33,7 @@ export const productsApi = createApi({
               quantity:number
               sizes: [String]
               name:String
-          ) {
+          }) {
             createProduct {
               _id
               colors
@@ -58,7 +59,7 @@ export const productsApi = createApi({
         },
       }),
     }),
-    deleteProducts: builder.query<Product, ProductRequest>({
+    deleteProducts: builder.query<Product, any>({
       query: () => ({
         document: gql`
           query deleteProduct {
@@ -69,7 +70,7 @@ export const productsApi = createApi({
         `,
       }),
     }),
-    getProduct: builder.query<Product, ProductRequest>({
+    getProduct: builder.query<Product, any>({
       query: () => ({
         document: gql`
           query product {
@@ -100,7 +101,7 @@ export const productsApi = createApi({
         `,
       }),
     }),
-    getProducts: builder.query<Product, ProductRequest>({
+    getProducts: builder.query<Product, any>({
       query: () => ({
         document: gql`
           query products {
@@ -119,7 +120,7 @@ export const productsApi = createApi({
         `,
       }),
     }),
-    getNewProducts: builder.query<Product, ProductRequest>({
+    getNewProducts: builder.query<Product, any>({
       query: () => ({
         document: gql`
           query newProducts {
@@ -138,7 +139,7 @@ export const productsApi = createApi({
         `,
       }),
     }),
-    getProductsByCategories: builder.query<Product, ProductRequest>({
+    getProductsByCategories: builder.query<Product, any>({
       query: ({ categories }) => ({
         document: gql`
           query productsByCategories({
@@ -162,7 +163,7 @@ export const productsApi = createApi({
         },
       }),
     }),
-    updateProduct: builder.query<Product, ProductRequest>({
+    updateProduct: builder.query<Product, any>({
       query: ({
         _id,
         categories,

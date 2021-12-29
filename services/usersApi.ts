@@ -9,7 +9,7 @@ export const usersApi = createApi({
   }),
   reducerPath: "users",
   endpoints: (builder) => ({
-    createUser: builder.query<User, UserRequest>({
+    createUser: builder.query<User, any>({
       query: ({ avatar, email, gender, password }) => ({
         document: gql`
           mutation createUser(
@@ -41,7 +41,7 @@ export const usersApi = createApi({
         },
       }),
     }),
-    deleteUser: builder.query<User, Partial<UserRequest>>({
+    deleteUser: builder.query<User, any>({
       query: ({ id }) => ({
         document: gql`
           query deleteUser {
@@ -101,7 +101,7 @@ export const usersApi = createApi({
         `,
       }),
     }),
-    updateUser: builder.query<User, UserRequest>({
+    updateUser: builder.query<User, any>({
       query: ({ avatar, email, gender, password }) => ({
         document: gql`
           mutation updateUser(

@@ -2,6 +2,8 @@ import React, { FormEvent, useState } from "react";
 import Button from "../components/Button";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
+import { useSignupMutation } from "../services";
+
 const Signup = () => {
   const [user, setUser] = useState({
     email: "",
@@ -10,8 +12,11 @@ const Signup = () => {
     password: "",
   });
 
+  const [signup, { data, isSuccess, isError, error }] = useSignupMutation({});
+
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(user);
   };
   return (
     <form

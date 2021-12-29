@@ -56,7 +56,7 @@ export const cartApi = createApi({
         `,
       }),
     }),
-    createCart: builder.query<CartItem, CartRequest>({
+    createCart: builder.query<CartItem, any>({
       query: ({ products, userId }) => ({
         document: gql`
           mutation createCart(
@@ -75,7 +75,7 @@ export const cartApi = createApi({
         },
       }),
     }),
-    deleteCart: builder.query<CartItem, CartRequest>({
+    deleteCart: builder.query<CartItem, any>({
       query: ({ cartId }) => ({
         document: gql`
           mutation createCart(
@@ -91,7 +91,7 @@ export const cartApi = createApi({
         },
       }),
     }),
-    updateCart: builder.query<CartItem, CartRequest>({
+    updateCart: builder.query<CartItem, any>({
       query: ({ cartId, products, userId }) => ({
         document: gql`
           mutation updateCart(

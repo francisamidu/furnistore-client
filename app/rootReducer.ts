@@ -1,7 +1,7 @@
 import { AnyAction, Reducer } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
-import { RootState, mainReducer } from "./store";
+import { RootState } from "./store";
 
 //Clears persisted storage
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {

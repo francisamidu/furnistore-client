@@ -15,7 +15,6 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
 import {
   authApi,
   cartApi,
@@ -34,11 +33,8 @@ import {
   rootReducer,
 } from "./index";
 
-const mainReducer = combineReducers({
-  [authApi.reducerPath]: authApi.reducer,
-});
 const combinedReducer = combineReducers({
-  ...mainReducer,
+  [authApi.reducerPath]: authApi.reducer,
   [authPageSlice.name]: authPageSlice.reducer,
   [cartSlice.name]: cartSlice.reducer,
   [cartApi.reducerPath]: cartApi.reducer,

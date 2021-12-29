@@ -8,14 +8,12 @@ export const imageUploadApi = createApi({
   }),
   reducerPath: "image",
   endpoints: (builder) => ({
-    uploadImage: builder.mutation<ImageResponse, ImageRequest>({
+    uploadImage: builder.mutation<ImageResponse & any, ImageRequest>({
       query: ({ file }) => ({
         url: "http://localhost:5000/api/upload-image",
         body: file,
         method: "PUT",
       }),
-      transformResponse: (response: ImageResponse): Promise<any> =>
-        response.data,
     }),
   }),
 });

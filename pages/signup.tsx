@@ -7,8 +7,10 @@ import Head from "next/head";
 
 import { useSignupMutation } from "../services/authApi";
 import { validateEmail, validatePassword } from "../helpers";
-import { useAppDispatch } from "../hooks/useDispatch";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { addError, clearErrors } from "../app/error.slice";
+
+import { BsArrowRight } from "react-icons/bs";
 
 const Signup = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +22,9 @@ const Signup = () => {
     password: "",
   });
 
-  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+  const errors = useAppSelector((state) => state.errors);
+
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       //Validates fields first before proceeding
@@ -40,14 +44,19 @@ const Signup = () => {
       } else {
         dispatch(clearErrors());
       }
-    } catch (error) {}
+
+      const response = await signup(user);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <section>
       <Head>
         <title>Signup - Create your Furnistore account</title>
       </Head>
-      <AuthTopBar pageName="Signup" page={""} />
+      <AuthTopBar page="Login" />
       <div className="content md:max-w-screen-md m-auto  grid grid-cols-4 py-8 px-12 content-center">
         <Image
           src={AuthIllustration}
@@ -60,12 +69,12 @@ const Signup = () => {
             Welcome, Create your Account
           </h1>
           <h2 className="text-1xl text-gray-500">
-            Enter your email and create a stronng password
+            Enter your email and create a strong password
           </h2>
-          <div className="input-group flex flex-row pr-4 mt-4 mr-4 w-full">
+          <div className="input-group flex flex-row mt-4 w-full">
             <select
               name="name"
-              id="name"
+              className="w-1/6 mr-2"
               onChange={(event) =>
                 setUser({ ...user, gender: event.target.value })
               }
@@ -75,15 +84,14 @@ const Signup = () => {
             </select>
             <input
               type="text"
-              id="name"
               placeholder="Name"
-              className="mt-2 rounded-sm flex-grow py-2 px-2 border-2 border-gray-200"
+              className="w-5/6 mt-2 rounded-sm flex-grow py-2 px-2 border-2 border-gray-200"
               onChange={(event) =>
                 setUser({ ...user, name: event.target.value })
               }
             />
           </div>
-          <div className="input-group flex flex-row justify-between pr-4 my-4 ml-4 w-full">
+          <div className="input-group flex flex-row justify-between my-4 w-full">
             <input
               type="text"
               id="email"
@@ -104,7 +112,10 @@ const Signup = () => {
             />
           </div>
           <div className="flex flex-row items-center justify-end">
-            <Button text="Continue" />
+            <Button
+              text="Continue"
+              icon={<BsArrowRight className="text-white text-2xl" />}
+            />
           </div>
         </form>
       </div>

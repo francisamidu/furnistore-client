@@ -13,6 +13,11 @@ export const {
   formatRelativeDate,
 } = Formatter;
 
-export const { extractCategories, extractColors, extractImage, extractSizes } =
-  Extractor;
+export const {
+  extractAuthData,
+  extractCategories,
+  extractColors,
+  extractImage,
+  extractSizes,
+} = Extractor;
 export const { validateEmail, validatePassword } = Validator;

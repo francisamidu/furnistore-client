@@ -1,7 +1,38 @@
+import {
+  MutationDefinition,
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+} from "@reduxjs/toolkit/dist/query";
+import { MutationState } from "@reduxjs/toolkit/dist/query/core/apiState";
 import { Product } from "../interfaces";
 import generateId from "./generateId";
 
 class Extractor {
+  static extractAuthData(
+    mutations: MutationState<{
+      login: MutationDefinition<
+        any,
+        BaseQueryFn<
+          string | FetchArgs,
+          unknown,
+          FetchBaseQueryError,
+          {},
+          FetchBaseQueryMeta
+        >,
+        never,
+        Partial<any>,
+        "auth"
+      >;
+    }>
+  ) {
+    if (Object.keys(mutations).length) {
+      const authDataKey = Object.keys(mutations);
+      const data = mutations[authDataKey[0]]?.data;
+      return data;
+    }
+  }
   static extractCategories(products: Product[]) {
     try {
       const tempArray = products

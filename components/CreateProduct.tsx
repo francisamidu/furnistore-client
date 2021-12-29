@@ -1,15 +1,16 @@
 import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import { AiOutlineSave } from "react-icons/ai";
-import { useUploadImageMutation } from "../services/imageUploadApi";
+import { useUploadImageMutation, useLazyCreateProductQuery } from "../services";
 import Button from "./Button";
 
 const CreateProduct = () => {
   const [uploadImage, { isLoading, isSuccess, isError, data, error }] =
     useUploadImageMutation();
+  const [createProduct, createProductResponse] = useLazyCreateProductQuery({});
   const [product, setProduct] = useState({
     description: "",
     name: "",
-    categories: null,
+    categories: null as any,
     color: "",
     size: "",
     price: 0,
@@ -17,12 +18,32 @@ const CreateProduct = () => {
     image: null as any,
     category: "",
   });
+  const [image, setImage] = useState<any>(null);
+
+  const [category, setCategory] = useState("");
   const [actionText, setActionText] = useState("Create Product");
+
+  const finishProductCreation = async () => {
+    try {
+      setProduct({ ...product, image });
+      await createProduct(product);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const run = async () => {
+    await finishProductCreation();
+  };
   const submitHandler = async (event: SyntheticEvent) => {
     event.preventDefault();
+    setProduct({
+      ...product,
+      categories: category.split(","),
+    });
     try {
       const formData = new FormData();
-      formData.append("image", product.image);
+      formData.append("image", image);
       await uploadImage({ file: formData });
     } catch (error) {
       console.log(error);
@@ -38,15 +59,20 @@ const CreateProduct = () => {
     if (isLoading) {
       console.log("Uploading...");
     }
-    if (isSuccess) {
-      console.log("It worked");
-      console.log(data);
+    if (isSuccess && typeof data.imageUrl === "string") {
+      setProduct({ ...product, image: data.imageUrl });
+      console.log(product);
     }
     if (isError) {
       console.log(`Whoops! ${JSON.stringify(error)}`);
     }
-    console.log(data);
   }, [isLoading, isSuccess, isError, data]);
+
+  useEffect(() => {
+    if (product.image) {
+      run();
+    }
+  }, [data]);
   return (
     <section className="bg-white flex-6">
       <form
@@ -82,9 +108,7 @@ const CreateProduct = () => {
             type="text"
             id="categories"
             className="mt-2 rounded-sm w-full py-2 px-2 border-2 border-gray-200"
-            onChange={(event) =>
-              setProduct({ ...product, category: event.target.value })
-            }
+            onChange={(event) => setCategory(event.target.value)}
           />
           <span className="text-red-500 mt-2">*Comma separated categories</span>
         </div>
@@ -139,7 +163,7 @@ const CreateProduct = () => {
             id="image"
             className="mt-2 rounded-sm w-full py-2 px-2 border-2 border-gray-200"
             onChange={(event: ChangeEvent<any>) =>
-              setProduct({ ...product, image: event?.target?.files[0] })
+              setImage(event?.target?.files[0])
             }
           />
         </div>
