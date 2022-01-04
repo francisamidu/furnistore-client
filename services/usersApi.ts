@@ -136,10 +136,3 @@ export const usersApi = createApi({
     }),
   }),
 });
-export const {
-  useCreateUserQuery,
-  useDeleteUserQuery,
-  useGetUserQuery,
-  useGetUsersQuery,
-  useUpdateUserQuery,
-} = usersApi;

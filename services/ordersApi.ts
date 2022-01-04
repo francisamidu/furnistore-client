@@ -175,15 +175,3 @@ export const ordersApi = createApi({
     }),
   }),
 });
-
-export const {
-  useCancelOrderQuery,
-  useCreateOrderQuery,
-  useDeleteOrderQuery,
-  useGetOrderByUserQuery,
-  useGetOrderQuery,
-  useGetOrderStatsQuery,
-  useGetOrdersByUserQuery,
-  useGetOrdersQuery,
-  useUpdateOrderQuery,
-} = ordersApi;

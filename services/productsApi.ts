@@ -215,14 +215,3 @@ export const productsApi = createApi({
     }),
   }),
 });
-
-export const {
-  useCreateProductQuery,
-  useDeleteProductsQuery,
-  useGetNewProductsQuery,
-  useGetProductQuery,
-  useGetProductStatsQuery,
-  useGetProductsByCategoriesQuery,
-  useGetProductsQuery,
-  useUpdateProductQuery,
-} = productsApi;

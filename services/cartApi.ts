@@ -114,11 +114,3 @@ export const cartApi = createApi({
     }),
   }),
 });
-
-export const {
-  useCreateCartQuery,
-  useDeleteCartQuery,
-  useGetCartQuery,
-  useGetCartsQuery,
-  useUpdateCartQuery,
-} = cartApi;

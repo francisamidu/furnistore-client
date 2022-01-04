@@ -23,4 +23,3 @@ export const salesApi = createApi({
     }),
   }),
 });
-export const { useGetSalesQuery } = salesApi;

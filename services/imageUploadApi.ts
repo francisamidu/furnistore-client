@@ -17,5 +17,3 @@ export const imageUploadApi = createApi({
     }),
   }),
 });
-
-export const { useUploadImageMutation } = imageUploadApi;
