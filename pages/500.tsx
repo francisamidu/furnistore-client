@@ -1,8 +1,7 @@
 import React from "react";
 
 import { NextComponentType } from "next";
-import HomeLayout from "../components/HomeLayout";
-import CustomErrorPage from "../components/ErrorPage";
+import { HomeLayout, ErrorPage as CustomErrorPage } from "../components";
 
 const Custom500 = () => {
   return (

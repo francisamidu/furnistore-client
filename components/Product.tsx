@@ -1,17 +1,16 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import Image from "next/image";
 import router from "next/router";
+import Link from "next/link";
+
 import { AiOutlineArrowLeft, AiOutlineShoppingCart } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
-
 import type { CartItem, Product as IProduct } from "../interfaces";
 import { extractColors, extractSizes, formatCurrency } from "../helpers";
-import Button from "./Button";
-import Link from "next/link";
 import { ProductProps } from "../types";
-import Quantity from "./Quantity";
 import { useAppDispatch } from "../hooks/useDispatch";
 import { addProductToCart } from "../app/cart.slice";
+import { Quantity, Button } from ".";
 
 const Product = (props: ProductProps) => {
   //Local state
@@ -61,7 +60,14 @@ const Product = (props: ProductProps) => {
 
   //Add to cart button click handler
   const addToCart = () => {
-    dispatch(addProductToCart(cartProduct));
+    dispatch(
+      addProductToCart({
+        ...cartProduct,
+        id: product.id,
+        color: cartProduct.color || product.colors[0],
+        size: cartProduct.size || product.sizes[0],
+      })
+    );
     setCartProductAndProduct();
   };
 

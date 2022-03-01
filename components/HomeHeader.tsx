@@ -1,5 +1,5 @@
 import React from "react";
-import DealBar from "./DealBar";
+import { DealBar } from ".";
 
 const HomeHeader = () => {
   return (

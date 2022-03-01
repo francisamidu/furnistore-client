@@ -1,22 +1,30 @@
 import router from "next/router";
 import React, { useState, useEffect } from "react";
-import Button from "./Button";
-import CartItem from "./CartItem";
-import CartProduct from "./CartProduct";
-import NotFound from "./NotFound";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { NotFound, Button, CartItem, CartProduct } from ".";
 
 import { formatCurrency, formatDateAndTime } from "../helpers";
 import { useAppSelector } from "../hooks/useSelector";
 import { CartProduct as CartProductType } from "../interfaces";
+import { useLazyCreateOrderQuery, useLazyCreateCartQuery } from "../services";
 
 const ShoppingCart = () => {
   const products: any[] = useAppSelector((state) => state.cart);
+  const [createCart, _cart] = useLazyCreateCartQuery({});
+  const [createOrder, _order] = useLazyCreateOrderQuery({});
+  const userId = "621a8982770788dba27080cd";
+  const res =
+    products?.length &&
+    createCart({
+      products,
+      userId,
+    });
+
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotalState] = useState(0);
   const [shippingPrice, setShippingPrice] = useState(0);
-  const [vat, setVat] = useState(0);
-  const [tax, setTax] = useState(20);
+  const [vat, setVat] = useState(0.015);
+  const [tax, setTax] = useState(0.015);
 
   const setTotal = () => {
     const total = products
@@ -27,20 +35,36 @@ const ShoppingCart = () => {
         0
       );
     setSubTotal(total);
-    setTax(((total > 10000 ? 0.0525 : 0.5) * total) / products.length);
-    setShippingPrice(subTotal > 10000 ? 0 : 10);
-    if (shippingPrice) {
-      setTotalState(total + tax + shippingPrice);
-    } else {
-      setTotalState(total + tax);
-    }
+    const temp = total * vat;
+    setTax(temp);
+    setShippingPrice(subTotal > 10000 ? 0 : 3.5);
+    setTotalState(total + tax + shippingPrice);
   };
+  const createNewOrder = () => {
+    createOrder({
+      userId,
+      products: products.map((p) => ({
+        name: p.name,
+        image: p.image,
+        productId: p._id || p.id,
+        quantity: p.quantity,
+      })),
+      amount: total,
+      address: "621a8a5797d2ecce3ad3ddc6",
+    });
+  };
+
   useEffect(() => {
     setTotal();
   }, [products]);
 
   useEffect(() => {
-    setVat(total > 10000 ? 0.5 : 20);
+    console.log(res);
+  }, [res]);
+
+  useEffect(() => {
+    setVat(total > 10000 ? total / 17 : vat);
+    console.log(vat);
   }, [total]);
   return (
     <section className="py-4 grid shopping-cart md:max-w-screen-xl m-auto">
@@ -117,7 +141,7 @@ const ShoppingCart = () => {
                 <Button
                   text={`Pay ${formatCurrency(total)}`}
                   className="mt-4"
-                  onClick={() => {}}
+                  onClick={() => createNewOrder()}
                   icon={<AiOutlineArrowRight className="text-white" />}
                 />
               </div>

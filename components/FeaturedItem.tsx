@@ -1,16 +1,16 @@
 import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
 
-const FeaturedItem = (props: any) => {
-  const { item } = props;
-  const { title, number, percentile, trending } = item;
+const FeaturedItem = ({
+  item: { title, amount, percentile, trending },
+  className,
+}: any) => {
   return (
-    <div className="flex flex-1 flex-col mr-2 bg-white py-4 px-8 rounded-md shadow">
+    <div
+      className={`flex flex-1 flex-col mr-2 bg-white py-4 px-4 rounded-md shadow ${className}`}
+    >
       <h1 className="font-bold text-2xl">{title}</h1>
       <div className="flex flex-row items-center justify-between">
-        <h2 className="text-3xl">
-          {title === "Revenue" || (title === "Sales" && "$")}
-          {number}
-        </h2>
+        <h2 className="text-3xl">{amount}</h2>
         <div className="flex flex-row items-center justify-between my-4">
           {trending ? (
             <div className="flex flex-row items-center">

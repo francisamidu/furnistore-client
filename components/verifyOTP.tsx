@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from "react";
-import Button from "../components/Button";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import router from "next/router";
+import { Button } from ".";
 
 const VerifyOTP = () => {
   const [otp, setOTP] = useState("");

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import { NextComponentType } from "next";
 import router from "next/router";
-
-import HomeLayout from "../components/HomeLayout";
-import Loading from "../components/Loading";
-import ShoppingCartComponent from "../components/ShoppingCart";
-import NotFound from "../components/NotFound";
-import Wishlist from "../components/Wishlist";
-import TabWrapper from "../components/TabWrapper";
+import {
+  Loading,
+  TabWrapper,
+  Wishlist,
+  NotFound,
+  HomeLayout,
+  ShoppingCart as ShoppingCartComponent,
+} from "../components";
 
 const ShoppingCart = () => {
   const { query } = router;

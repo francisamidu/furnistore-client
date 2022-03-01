@@ -3,6 +3,7 @@ import CartProductProps from "./CartProductProps";
 import CartRequest from "./CartRequest";
 import Column from "./ColumnProps";
 import Order from "./Order";
+import OrderListProps from "./OrderListProps";
 import OrderRequest from "./OrderRequest";
 import ProductProps from "./ProductProps";
 import ProductsResponse from "./ProductsResponse";
@@ -19,6 +20,7 @@ export type {
   ProductsResponse,
   Order,
   OrderRequest,
+  OrderListProps,
   Sale,
   User,
   UserRequest,

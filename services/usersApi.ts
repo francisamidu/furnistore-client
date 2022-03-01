@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { graphqlRequestBaseQuery } from "@rtk-query/graphql-request-base-query";
-import { gql } from "@apollo/client";
-import { Sale, User, UserRequest } from "../types";
+import gql from "graphql-tag";
+import { Sale, User } from "../types";
 
 export const usersApi = createApi({
   baseQuery: graphqlRequestBaseQuery({
@@ -87,7 +87,7 @@ export const usersApi = createApi({
       }),
     }),
     getUsers: builder.query<any, any>({
-      query: () => ({
+      query: ({ token }) => ({
         document: gql`
           query users {
             users {
@@ -100,15 +100,25 @@ export const usersApi = createApi({
           }
         `,
       }),
+      async onQueryStarted(_, { getState, queryFulfilled }) {
+        const state = getState();
+        console.log(state);
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
     updateUser: builder.query<User, any>({
       query: ({ avatar, email, gender, password }) => ({
         document: gql`
           mutation updateUser(
-            avatar: String
-                email: String
-                gender: String
-                password: String
+              avatar: String
+              email: String
+              gender: String
+              password: String
           ) {
             updateUser(
               user: {

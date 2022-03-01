@@ -1,12 +1,35 @@
-import React from "react";
-import FeaturedInfo from "../components/FeaturedInfo";
+import React, { useEffect, useState } from "react";
 
-const Home = () => {
+import { extractCategories, serializeProducts } from "../helpers";
+import { useProducts } from "../contexts/ProductsContext";
+import { useGetProductsQuery } from "../services";
+import { HomeHeader, ProductList, CategoryList, Features, Newsletter } from ".";
+
+const Index = () => {
+  const featuredProducts = useProducts();
+  const [products, setProducts] = useState([...featuredProducts]);
+  let categories = extractCategories(products);
+  const query = useGetProductsQuery({});
+  const { data }: any = query;
+  useEffect(() => {
+    if (data?.products) {
+      categories = extractCategories(data.products);
+      setProducts(serializeProducts(data.products));
+    }
+  }, [data]);
   return (
-    <section className="flex-6 dashboard-content bg-gray-100">
-      <FeaturedInfo />
-    </section>
+    <>
+      <HomeHeader />
+      <ProductList
+        products={products}
+        page="home"
+        categoryName="Featured Products"
+      />
+      <CategoryList categories={categories} products={data?.products || []} />{" "}
+      <Features />
+      <Newsletter />
+    </>
   );
 };
 
-export default Home;
+export default Index;

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-
-import SidebarLink from "./SidebarLink";
-
-import generateId from "../helpers/generateId";
+import { SidebarLink } from ".";
+import { generateId } from "../helpers";
 import ISidebarLink from "../interfaces/SidebarLink";
 
 const Sidebar = () => {
@@ -22,8 +20,6 @@ const Sidebar = () => {
       id: generateId(),
       text: "Sales",
     },
-  ]);
-  const [quickMenuLinks, setQuickMenuLinks] = useState<ISidebarLink[]>([
     {
       active: false,
       id: generateId(),
@@ -37,6 +33,11 @@ const Sidebar = () => {
     {
       active: false,
       id: generateId(),
+      text: "Orders",
+    },
+    {
+      active: false,
+      id: generateId(),
       text: "Transactions",
     },
     {
@@ -44,13 +45,6 @@ const Sidebar = () => {
       id: generateId(),
       text: "Products",
     },
-    {
-      active: false,
-      id: generateId(),
-      text: "Reports",
-    },
-  ]);
-  const [notificationLinks, setNotificationLinks] = useState<ISidebarLink[]>([
     {
       active: false,
       id: generateId(),
@@ -69,9 +63,9 @@ const Sidebar = () => {
   ]);
 
   return (
-    <div className="flex-1 sidebar sticky px-6 py-4">
+    <div className="min-w-[17%] sidebar sticky h-full px-6 py-4">
       <h3 className="text-gray-400 text-md my-2">Dashboard</h3>
-      {dashboardLinks.map((link) => (
+      {dashboardLinks.slice(0, 3).map((link) => (
         <SidebarLink
           link={link}
           setLinks={setDashboardLinks}
@@ -80,20 +74,11 @@ const Sidebar = () => {
         />
       ))}
       <h3 className="text-gray-400 text-md my-2">Quick Menu</h3>
-      {quickMenuLinks.map((link) => (
+      {dashboardLinks.slice(3, 8).map((link) => (
         <SidebarLink
           link={link}
-          setLinks={setQuickMenuLinks}
-          links={quickMenuLinks}
-          key={link.id}
-        />
-      ))}
-      <h3 className="text-gray-400 text-md my-2">Notification</h3>
-      {notificationLinks.map((link) => (
-        <SidebarLink
-          link={link}
-          setLinks={setNotificationLinks}
-          links={notificationLinks}
+          setLinks={setDashboardLinks}
+          links={dashboardLinks}
           key={link.id}
         />
       ))}

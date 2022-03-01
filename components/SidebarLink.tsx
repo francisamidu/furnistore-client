@@ -2,7 +2,7 @@ import React from "react";
 
 import Link from "next/link";
 import router from "next/router";
-import Icon from "./Icon";
+import { Icon } from ".";
 
 const SidebarLink = (props: any) => {
   const { links, link, setLinks } = props;
@@ -20,10 +20,18 @@ const SidebarLink = (props: any) => {
         return link;
       });
     });
-    router.push(`/${text?.toLowerCase()}`);
+    if (text === "Home") {
+      router.push("/dashboard");
+      return;
+    }
+    router.push(`/dashboard/${text?.toLowerCase()}`);
   };
   return (
-    <Link href={text === "Home" ? `/dashboard` : `/${text?.toLowerCase()}`}>
+    <Link
+      href={
+        text === "Home" ? `/dashboard` : `/dashboard/${text?.toLowerCase()}`
+      }
+    >
       <a
         className={
           active

@@ -1,7 +1,6 @@
 import { NextComponentType } from "next";
 import React from "react";
-import AuthLayout from "../components/AuthLayout";
-import VerifyOTP from "../components/verifyOTP";
+import { AuthLayout, VerifyOTP } from "../components";
 
 const Verification = () => {
   return <VerifyOTP />;

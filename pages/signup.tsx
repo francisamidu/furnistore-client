@@ -1,16 +1,15 @@
 import React, { FormEvent, useState } from "react";
-import AuthTopBar from "../components/AuthTopBar";
 import Image from "next/image";
 import AuthIllustration from "../public/authentication.svg";
-import Button from "../components/Button";
 import Head from "next/head";
 
-import { useSignupMutation } from "../services/authApi";
+import { useSignupMutation } from "../services";
 import { validateEmail, validatePassword } from "../helpers";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { addError, clearErrors } from "../app/error.slice";
 
 import { BsArrowRight } from "react-icons/bs";
+import { AuthTopBar, Button } from "../components";
 
 const Signup = () => {
   const dispatch = useAppDispatch();

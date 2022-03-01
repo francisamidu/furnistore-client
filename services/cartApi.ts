@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { graphqlRequestBaseQuery } from "@rtk-query/graphql-request-base-query";
 import type { CartItem } from "../interfaces";
-import { gql } from "@apollo/client";
+import gql from "graphql-tag";
 import { CartRequest } from "../types";
 
 export const cartApi = createApi({
@@ -19,7 +19,7 @@ export const cartApi = createApi({
       query: ({ cartId }) => ({
         document: gql`
           query cart($cartId: ID) {
-            cart {
+            cart(cartId: $cartId) {
               _id
               colors
               categories
@@ -59,13 +59,10 @@ export const cartApi = createApi({
     createCart: builder.query<CartItem, any>({
       query: ({ products, userId }) => ({
         document: gql`
-          mutation createCart(
-            userId: ID!
-            products: [Object]!        
-          ) {
-            createCart {
-              _id        
-              products        
+          mutation createCart($products: [Object]!, $userId: ID!) {
+            createCart(cart: { products: $products, userId: $userId }) {
+              _id
+              products
             }
           }
         `,
@@ -78,11 +75,9 @@ export const cartApi = createApi({
     deleteCart: builder.query<CartItem, any>({
       query: ({ cartId }) => ({
         document: gql`
-          mutation createCart(
-            cartId:ID!       
-          ) {
-            deleteCart {
-              _id        
+          mutation deleteCart($cartId: ID!) {
+            deleteCart(cartId: $cartId) {
+              _id
             }
           }
         `,
@@ -95,13 +90,16 @@ export const cartApi = createApi({
       query: ({ cartId, products, userId }) => ({
         document: gql`
           mutation updateCart(
-            cartId
-            userId: ID!
-            products: [Object]!        
+            $cartId: ID!
+            $userId: ID!
+            $products: [Object]!
           ) {
-            updateCart {
-              _id        
-              products        
+            updateCart(
+              cartId: $cartId
+              cart: { userId: $userId, products: $products }
+            ) {
+              _id
+              products
             }
           }
         `,

@@ -7,7 +7,7 @@ import {
 } from "@reduxjs/toolkit/dist/query";
 import { MutationState } from "@reduxjs/toolkit/dist/query/core/apiState";
 import { Product } from "../interfaces";
-import generateId from "./generateId";
+import { generateId } from ".";
 
 class Extractor {
   static extractAuthData(

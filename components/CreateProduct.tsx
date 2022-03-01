@@ -12,7 +12,8 @@ const CreateProduct = () => {
     name: "",
     categories: null as any,
     color: "",
-    size: "",
+    colors: [""],
+    sizes: [""],
     price: 0,
     quantity: 0,
     image: null as any,
@@ -21,25 +22,25 @@ const CreateProduct = () => {
   const [image, setImage] = useState<any>(null);
 
   const [category, setCategory] = useState("");
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
   const [actionText, setActionText] = useState("Create Product");
 
-  const finishProductCreation = async () => {
+  const finishProductCreation = async (item: typeof product) => {
     try {
-      setProduct({ ...product, image });
-      await createProduct(product);
+      await createProduct(item);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const run = async () => {
-    await finishProductCreation();
-  };
   const submitHandler = async (event: SyntheticEvent) => {
     event.preventDefault();
     setProduct({
       ...product,
       categories: category.split(","),
+      colors: color.split(","),
+      sizes: size.split(","),
     });
     try {
       const formData = new FormData();
@@ -60,23 +61,36 @@ const CreateProduct = () => {
       console.log("Uploading...");
     }
     if (isSuccess && typeof data.imageUrl === "string") {
-      setProduct({ ...product, image: data.imageUrl });
-      console.log(product);
+      const item = {
+        ...product,
+        image: data.imageUrl,
+      };
+      finishProductCreation(item);
+      setCategory("");
+      setColor("");
+      setSize("");
+      setProduct({
+        description: "",
+        name: "",
+        categories: null as any,
+        color: "",
+        colors: [""],
+        sizes: [""],
+        price: 0,
+        quantity: 0,
+        image: null as any,
+        category: "",
+      });
     }
     if (isError) {
       console.log(`Whoops! ${JSON.stringify(error)}`);
     }
   }, [isLoading, isSuccess, isError, data]);
 
-  useEffect(() => {
-    if (product.image) {
-      run();
-    }
-  }, [data]);
   return (
-    <section className="bg-white flex-6">
+    <section className="dashboard-content bg-white">
       <form
-        className="md:max-w-screen-sm md:m-auto py-8"
+        className="md:max-w-screen-sm md:m-auto px-12 py-8"
         onSubmit={(event: SyntheticEvent) => submitHandler(event)}
       >
         <h1 className="text-3xl text-gray-500">Create new product</h1>
@@ -89,18 +103,19 @@ const CreateProduct = () => {
             onChange={(event) =>
               setProduct({ ...product, name: event.target.value })
             }
+            value={product.name}
           />
         </div>
         <div className="input-group flex flex-col pr-4 mt-4 w-full">
-          <label htmlFor="color">Color</label>
+          <label htmlFor="color">Colors</label>
           <input
             type="text"
             id="color"
             className="mt-2 rounded-sm w-full py-2 px-2 border-2 border-gray-200"
-            onChange={(event) =>
-              setProduct({ ...product, color: event.target.value })
-            }
+            onChange={(event) => setColor(event.target.value)}
+            value={color}
           />
+          <span className="text-red-500 mt-2">*Comma separated colors</span>
         </div>
         <div className="input-group flex flex-col pr-4 mt-4 w-full">
           <label htmlFor="categories">Categories</label>
@@ -109,6 +124,7 @@ const CreateProduct = () => {
             id="categories"
             className="mt-2 rounded-sm w-full py-2 px-2 border-2 border-gray-200"
             onChange={(event) => setCategory(event.target.value)}
+            value={category}
           />
           <span className="text-red-500 mt-2">*Comma separated categories</span>
         </div>
@@ -121,6 +137,7 @@ const CreateProduct = () => {
             onChange={(event) =>
               setProduct({ ...product, description: event.target.value })
             }
+            value={product.description}
           />
         </div>
         <div className="input-group flex flex-col pr-4 mt-4 w-full">
@@ -129,10 +146,10 @@ const CreateProduct = () => {
             type="text"
             id="size"
             className="mt-2 rounded-sm w-full py-2 px-2 border-2 border-gray-200"
-            onChange={(event) =>
-              setProduct({ ...product, size: event.target.value })
-            }
+            onChange={(event) => setSize(event.target.value)}
+            value={size}
           />
+          <span className="text-red-500 mt-2">*Comma separated sizes</span>
         </div>
         <div className="input-group flex flex-col pr-4 mt-4 w-full">
           <label htmlFor="price">Price</label>
@@ -143,6 +160,7 @@ const CreateProduct = () => {
             onChange={(event) =>
               setProduct({ ...product, price: parseInt(event.target.value) })
             }
+            value={product.price}
           />
         </div>
         <div className="input-group flex flex-col pr-4 mt-4 w-full">
@@ -154,6 +172,7 @@ const CreateProduct = () => {
             onChange={(event) =>
               setProduct({ ...product, quantity: parseInt(event.target.value) })
             }
+            value={product.quantity}
           />
         </div>
         <div className="input-group flex flex-col pr-4 mt-4 w-full">

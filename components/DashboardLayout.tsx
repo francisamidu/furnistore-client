@@ -1,9 +1,8 @@
 import React, { PropsWithChildren } from "react";
 
 import Head from "next/head";
-import AppBar from "../components/AppBar";
-import Sidebar from "../components/Sidebar";
 import { AppProps } from "next/app";
+import { AppBar, Sidebar } from ".";
 
 const Dashboard = (props: Partial<PropsWithChildren<AppProps>>) => {
   const { children } = props;

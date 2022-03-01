@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import generateId from "../helpers/generateId";
+import { generateId } from "../helpers";
 
 type Error = {
   id: string;

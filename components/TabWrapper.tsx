@@ -2,8 +2,8 @@ import React, { PropsWithChildren } from "react";
 
 import { AppProps } from "next/app";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import Button from "./Button";
 import { useAppSelector } from "../hooks/useSelector";
+import { Button } from ".";
 
 type TabWrapperProps = {
   onClick: (path: string) => void;

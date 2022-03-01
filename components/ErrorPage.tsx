@@ -1,10 +1,10 @@
 import React from "react";
 import { AiFillHome } from "react-icons/ai";
-import Button from "../components/Button";
 
 import { AppProps } from "next/app";
 import Image from "next/image";
 import router from "next/router";
+import { Button } from ".";
 
 type CustomErrorPageProps = {
   heading: string;

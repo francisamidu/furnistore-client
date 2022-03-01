@@ -8,10 +8,12 @@ import {
   AiOutlineMenu,
 } from "react-icons/ai";
 import { MdOutlineShoppingBasket } from "react-icons/md";
-import generateId from "../helpers/generateId";
+import { generateId } from "../helpers";
 import ILink from "../interfaces/HomeLink";
-import HomeLink from "./HomeLink";
 import { useAppSelector } from "../hooks/useSelector";
+import { HomeLink } from ".";
+
+import router from "next/router";
 
 const HomeTopBar = () => {
   const [links, setLinks] = useState<Array<ILink>>([
@@ -55,6 +57,9 @@ const HomeTopBar = () => {
   const showMenuHandler = () => {
     setShowMenu(!showMenu);
   };
+  const gotoAccounts = () => {
+    router.push("/login");
+  };
   const cart = useAppSelector((state) => state.cart);
   const { length } = cart;
   return (
@@ -67,7 +72,10 @@ const HomeTopBar = () => {
             </a>
           </Link>
           <div className="flex flex-row items-center justify-between">
-            <AiOutlineUser className="transition duration-400 hover:color-purplish cursor-pointer text-2xl mr-4" />
+            <AiOutlineUser
+              className="transition duration-400 hover:color-purplish cursor-pointer text-2xl mr-4"
+              onClick={gotoAccounts}
+            />
             <div className="mr-6 flex flex-row items-center relative cursor-pointer">
               {length > 0 ? (
                 <div className="badge bg-red-500 text-white flex flex-row items-center justify-center rounded-full">
@@ -108,7 +116,7 @@ const HomeTopBar = () => {
                 type="text"
                 id="username"
                 placeholder="Search"
-                className="w-full py-2 px-2 h-full border-b-2 border-gray-200"
+                className="w-full py-2 px-2 h-full"
               />
               <AiOutlineSearch className="home-search absolute text-gray-500 text-2xl" />
             </form>

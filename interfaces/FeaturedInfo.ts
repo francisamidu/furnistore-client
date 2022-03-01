@@ -1,7 +1,7 @@
 export default interface FeatureInfo {
   id: string;
   title: string;
-  number: number;
+  amount: number | string;
   percentile: number;
   trending: boolean;
 }

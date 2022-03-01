@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { graphqlRequestBaseQuery } from "@rtk-query/graphql-request-base-query";
-import { gql } from "@apollo/client";
+import gql from "graphql-tag";
 import type { Order, OrderRequest, Sale } from "../types";
 
 export const ordersApi = createApi({
@@ -9,13 +9,11 @@ export const ordersApi = createApi({
   }),
   reducerPath: "orders",
   endpoints: (builder) => ({
-    cancelOrder: builder.query<Order, any>({
-      query: ({ orderId }) => ({
+    cancelOrder: builder.query<{ cancelOrder: Order }, any>({
+      query: (orderId) => ({
         document: gql`
-          mutation cancelOrder(
-            orderId
-          ) {
-            cancelOrder {
+          mutation cancelOrder($orderId: ID!) {
+            cancelOrder(orderId: $orderId) {
               _id
             }
           }
@@ -25,21 +23,28 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    createOrder: builder.query<Order, any>({
+    createOrder: builder.query<{ createOrder: Order }, any>({
       query: ({ address, amount, products, userId }) => ({
         document: gql`
           mutation createOrder(
-            userId: ID!
-        products: [Object]!
-        amount: Int!
-        address: AddressInput!
+            $userId: ID!
+            $products: [Object]!
+            $amount: Int!
+            $address: AddressInput!
           ) {
-            createOrder {
+            createOrder(
+              order: {
+                amount: $amount
+                address: $address
+                products: $products
+                userId: $userId
+              }
+            ) {
               _id
-        userId
-        products
-        amount
-        address
+              userId
+              products
+              amount
+              address
             }
           }
         `,
@@ -51,14 +56,12 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    deleteOrder: builder.query<Order, any>({
-      query: ({ orderId }) => ({
+    deleteOrder: builder.query<{ deleteOrder: Order }, any>({
+      query: (orderId) => ({
         document: gql`
-          mutation deleteOrder(
-            orderId: ID!
-          ) {
-            deleteOrder {
-              _id        
+          mutation deleteOrder($orderId: ID!) {
+            deleteOrder(orderId: $orderId) {
+              _id
             }
           }
         `,
@@ -67,11 +70,11 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    getOrder: builder.query<Order, any>({
-      query: () => ({
+    getOrder: builder.query<{ order: Order }, any>({
+      query: (orderId) => ({
         document: gql`
-          query order {
-            order {
+          query order($orderId: ID!) {
+            order(orderId: $orderId) {
               _id
               userId
               products
@@ -79,9 +82,12 @@ export const ordersApi = createApi({
             }
           }
         `,
+        variables: {
+          orderId,
+        },
       }),
     }),
-    getOrderStats: builder.query<Sale, any>({
+    getOrderStats: builder.query<{ orderStats: Sale }, any>({
       query: () => ({
         document: gql`
           query orderStats {
@@ -93,7 +99,7 @@ export const ordersApi = createApi({
         `,
       }),
     }),
-    getOrders: builder.query<Order, any>({
+    getOrders: builder.query<{ orders: Order[] }, any>({
       query: () => ({
         document: gql`
           query orders {
@@ -107,13 +113,11 @@ export const ordersApi = createApi({
         `,
       }),
     }),
-    getOrderByUser: builder.query<Order, any>({
-      query: ({ userId }) => ({
+    getOrderByUser: builder.query<{ orderByUser: Order }, any>({
+      query: (userId) => ({
         document: gql`
-          query orderByUser(
-            userId:ID
-          ) {
-            orderByUser{
+          query orderByUser($userId: ID) {
+            orderByUser(userId: $userId) {
               _id
               userId
               products
@@ -126,13 +130,11 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    getOrdersByUser: builder.query<Order, any>({
-      query: ({ userId }) => ({
+    getOrdersByUser: builder.query<{ ordersByUser: Order[] }, any>({
+      query: (userId) => ({
         document: gql`
-          query ordersByUser(
-            userId:ID
-          ) {
-            ordersByUser{
+          query ordersByUser($userId: ID) {
+            ordersByUser(userId: $userId) {
               _id
               userId
               products
@@ -145,17 +147,25 @@ export const ordersApi = createApi({
         },
       }),
     }),
-    updateOrder: builder.query<Order, any>({
+    updateOrder: builder.query<{ updateOrder: Order }, any>({
       query: ({ address, amount, products, userId, orderId }) => ({
         document: gql`
           mutation updateOrder(
-            orderId
-            userId: ID!
-            products: [Object]!
-            amount: Int!
-            address: AddressInput!
+            $orderId: ID!
+            $address: AddressInput!
+            $amount: Int!
+            $products: [Object]!
+            $userId: ID!
           ) {
-            updateOrder {
+            updateOrder(
+              orderId: $orderId
+              order: {
+                address: $address
+                amount: $amount
+                products: $products
+                userId: $userId
+              }
+            ) {
               _id
               userId
               products

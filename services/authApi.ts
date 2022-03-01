@@ -19,6 +19,9 @@ export const authApi = createApi({
         method: "POST",
         url: "/login",
       }),
+      // async onQueryStarted(_id,{ }){
+
+      // }
     }),
     logout: builder.mutation<Partial<User>, any>({
       query: ({ accessToken, refreshToken }) => ({

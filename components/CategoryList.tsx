@@ -13,19 +13,19 @@ type CategoryListProps = {
     id: string;
     text: string;
   }[];
-  products: Product[];
+  products: Product[] | [];
 };
 
 const CategoryList = (props: CategoryListProps) => {
   const { categories, products } = props;
-  const snippetCategories = categories
-    .slice(0, 2)
-    .map((category: { id: string; text: string }, index: number) => {
-      return {
-        name: category.text,
-        image: extractImage(products[index]),
-      };
-    });
+  const snippetCategories = products?.length
+    ? categories.slice(0, 2).map((category: { id: string; text: string }) => {
+        return {
+          name: category.text,
+          image: extractImage(products[0]),
+        };
+      })
+    : [];
   return (
     <section className="p-4 bg-gray-100">
       <div className="flex flex-row items-center justify-between">

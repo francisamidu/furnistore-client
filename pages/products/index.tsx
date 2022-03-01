@@ -3,12 +3,9 @@ import React, { useState, useEffect } from "react";
 import router from "next/router";
 import { NextComponentType } from "next";
 
-import HomeLayout from "../../components/HomeLayout";
-import ProductList from "../../components/ProductList";
-import NotFound from "../../components/NotFound";
-
-import { useProducts } from "../../contexts/ProductContext";
+import { useProducts } from "../../contexts";
 import type { Product } from "../../interfaces";
+import { ProductList, NotFound, HomeLayout } from "../../components";
 
 const Products = () => {
   const products = useProducts();

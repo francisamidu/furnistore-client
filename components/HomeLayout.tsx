@@ -1,8 +1,7 @@
 import React, { PropsWithChildren } from "react";
-import HomeTopBar from "./HomeTopBar";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import Footer from "./Footer";
+import { HomeTopBar, Footer } from ".";
 
 const HomeLayout = (props: Partial<PropsWithChildren<AppProps>>) => {
   const { children } = props;

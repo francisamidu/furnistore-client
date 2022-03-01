@@ -4,10 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 
 import {
-  AiOutlineDown,
-  AiOutlineSetting,
-  AiOutlineNotification,
-} from "react-icons/ai";
+  IoIosNotifications as Notification,
+  IoIosSettings as Settings,
+} from "react-icons/io";
+import { CgChevronDown } from "react-icons/cg";
 
 const AppBar = () => {
   return (
@@ -24,13 +24,13 @@ const AppBar = () => {
           </div>
           <Link href="/notifications">
             <a>
-              <AiOutlineNotification className="text-gray-700 text-2xl" />
+              <Notification className="text-gray-700 text-2xl" />
             </a>
           </Link>
         </div>
         <Link href="/settings">
           <a className="mr-6">
-            <AiOutlineSetting className="text-gray-700 cursor-pointer text-2xl" />
+            <Settings className="text-gray-700 cursor-pointer text-2xl" />
           </a>
         </Link>
         <div className="flex flex-row items-center">
@@ -41,7 +41,7 @@ const AppBar = () => {
             className="rounded-full cursor-pointer"
           />
           <span className="ml-4 text-md">Francis</span>
-          <AiOutlineDown className="ml-4 text-gray-700 cursor-pointer text-1xl" />
+          <CgChevronDown className="ml-4 text-gray-700 cursor-pointer text-1xl" />
         </div>
       </div>
     </div>

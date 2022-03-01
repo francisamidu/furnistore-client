@@ -4,12 +4,12 @@ import React, {
   useState,
   PropsWithChildren,
 } from "react";
-import generateId from "../helpers/generateId";
+import { generateId } from "../helpers";
 
 import type { Product } from "../interfaces";
-const ProductContext = createContext<Array<Product>>([]);
+const ProductsContext = createContext<Array<Product>>([]);
 
-const ProductProvider = ({ children }: PropsWithChildren<any>) => {
+const ProductsProvider = ({ children }: PropsWithChildren<any>) => {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([
     {
       id: generateId(),
@@ -78,10 +78,10 @@ const ProductProvider = ({ children }: PropsWithChildren<any>) => {
     },
   ]);
   return (
-    <ProductContext.Provider value={featuredProducts}>
+    <ProductsContext.Provider value={featuredProducts}>
       {children}
-    </ProductContext.Provider>
+    </ProductsContext.Provider>
   );
 };
-export const useProducts = () => useContext(ProductContext);
-export default ProductProvider;
+const useProducts = () => useContext(ProductsContext);
+export { ProductsProvider, useProducts };

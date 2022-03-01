@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, SyntheticEvent } from "react";
+import React, { PropsWithChildren } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
@@ -38,7 +38,7 @@ const ProductItem = (props: PropsWithChildren<ProductItemProps>) => {
       return (
         <>
           <h1 className="text-md capitalize mt-2">{name}</h1>
-          <span className="text-gray-800 text-md font-bold py-2">${price}</span>
+          <span className="text-gray-800 text-md font-bold py-2">{price}</span>
         </>
       );
     }

@@ -1,15 +1,18 @@
 import Extractor from "./Extractor";
-import generateId from "./generateId";
 import Formatter from "./Formatter";
+import Generator from "./Generator";
 import Validator from "./Validator";
+import millify from "./millify";
+import Serializer from "./Serializer";
 
-export { generateId };
+export const { generateId, generateRandomNumber } = Generator;
 
 export const {
   formatCurrency,
   reverseFormat,
   formatDate,
   formatDateAndTime,
+  formatNumber,
   formatRelativeDate,
 } = Formatter;
 
@@ -20,4 +23,14 @@ export const {
   extractImage,
   extractSizes,
 } = Extractor;
+
+export const {
+  serializeOrder,
+  serializeOrders,
+  serializeProduct,
+  serializeProducts,
+  serializeUser,
+  serializeUsers,
+} = Serializer;
 export const { validateEmail, validatePassword } = Validator;
+export { millify };

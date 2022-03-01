@@ -14,7 +14,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storage from "./storage";
 import {
   authApi,
   cartApi,
@@ -32,37 +32,41 @@ import {
   productSlice,
   rootReducer,
 } from "./index";
+import rtkQueryErrorLogger from "./rtk-error-logger";
 
 const combinedReducer = combineReducers({
-  [authApi.reducerPath]: authApi.reducer,
+  [errorSlice.name]: errorSlice.reducer,
   [authPageSlice.name]: authPageSlice.reducer,
   [cartSlice.name]: cartSlice.reducer,
-  [cartApi.reducerPath]: cartApi.reducer,
-  [errorSlice.name]: errorSlice.reducer,
-  [imageUploadApi.reducerPath]: imageUploadApi.reducer,
-  [ordersApi.reducerPath]: ordersApi.reducer,
-  [productSlice.name]: productSlice.reducer,
-  [productsApi.reducerPath]: productsApi.reducer,
-  [salesApi.reducerPath]: salesApi.reducer,
-  [usersApi.reducerPath]: usersApi.reducer,
   root: rootReducer,
 });
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, combinedReducer);
+const persistedReducer = persistReducer(
+  {
+    key: "root",
+    version: 1,
+    storage,
+  },
+  combinedReducer
+);
 export const store: Store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    ...persistedReducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [cartApi.reducerPath]: cartApi.reducer,
+    [imageUploadApi.reducerPath]: imageUploadApi.reducer,
+    [ordersApi.reducerPath]: ordersApi.reducer,
+    [productSlice.name]: productSlice.reducer,
+    [productsApi.reducerPath]: productsApi.reducer,
+    [salesApi.reducerPath]: salesApi.reducer,
+    [usersApi.reducerPath]: usersApi.reducer,
+  },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(rtkQueryErrorLogger),
 });
 
 export const persistor = persistStore(store);

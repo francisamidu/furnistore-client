@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { graphqlRequestBaseQuery } from "@rtk-query/graphql-request-base-query";
 import type { Product, ProductRequest } from "../interfaces";
-import { gql } from "@apollo/client";
+import gql from "graphql-tag";
 import { Sale } from "../types";
 
 export const productsApi = createApi({
@@ -23,18 +23,27 @@ export const productsApi = createApi({
       }) => ({
         document: gql`
           mutation createProduct(
-            product:{
-              _id:ID
-              colors: [String]
-              categories: [String]
-              description: String
-              image: String
-              price:number
-              quantity:number
-              sizes: [String]
-              name:String
-          }) {
-            createProduct {
+            $colors: [String!]
+            $categories: [String]
+            $description: String!
+            $image: String!
+            $price: Int!
+            $quantity: Int!
+            $sizes: [String!]
+            $name: String!
+          ) {
+            createProduct(
+              product: {
+                colors: $colors
+                categories: $categories
+                description: $description
+                image: $image
+                price: $price
+                quantity: $quantity
+                sizes: $sizes
+                name: $name
+              }
+            ) {
               _id
               colors
               categories
@@ -60,21 +69,24 @@ export const productsApi = createApi({
       }),
     }),
     deleteProducts: builder.query<Product, any>({
-      query: () => ({
+      query: ({ productId }) => ({
         document: gql`
-          query deleteProduct {
-            deleteProduct {
+          query deleteProduct($productId: ID!) {
+            deleteProduct(productId: $productId) {
               _id
             }
           }
         `,
+        variables: {
+          productId,
+        },
       }),
     }),
-    getProduct: builder.query<Product, any>({
-      query: () => ({
+    getProduct: builder.query<{ product: Product }, any>({
+      query: (productId) => ({
         document: gql`
-          query product {
-            product {
+          query product($productId: ID!) {
+            product(productId: $productId) {
               _id
               colors
               categories
@@ -87,6 +99,9 @@ export const productsApi = createApi({
             }
           }
         `,
+        variables: {
+          productId,
+        },
       }),
     }),
     getProductStats: builder.query<Sale, any>({
@@ -101,7 +116,7 @@ export const productsApi = createApi({
         `,
       }),
     }),
-    getProducts: builder.query<Product, any>({
+    getProducts: builder.query<{ products: Product[] }, any>({
       query: () => ({
         document: gql`
           query products {
@@ -119,6 +134,14 @@ export const productsApi = createApi({
           }
         `,
       }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log(`Data is back: ${data}`);
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
     getNewProducts: builder.query<Product, any>({
       query: () => ({
@@ -143,9 +166,11 @@ export const productsApi = createApi({
       query: ({ categories }) => ({
         document: gql`
           query productsByCategories({
-            categories: [String]
+            $categories: [String]
           }) {
-            products {
+            products(
+              categories:$categories
+            ) {
               _id
               colors
               categories
@@ -177,17 +202,26 @@ export const productsApi = createApi({
       }) => ({
         document: gql`
           mutation updateProduct(
-              _id:ID
-              colors: [String]
-              categories: [String]
-              description: String
-              image: String
-              price:number
-              quantity:number
-              sizes: [String]
-              name:String
+            $_id: ID
+            $colors: [String]
+            $categories: [String]
+            $description: String
+            $image: String
+            $price: number
+            $quantity: number
+            $sizes: [String]
+            $name: String
           ) {
-            updateProduct {
+            updateProduct(
+              colors: $colors
+              categories: $categories
+              description: $descrition
+              image: $image
+              price: $price
+              quantity: $quantity
+              sizes: $sizes
+              name: $name
+            ) {
               _id
               colors
               categories
@@ -215,3 +249,5 @@ export const productsApi = createApi({
     }),
   }),
 });
+
+const { useGetProductQuery } = productsApi;

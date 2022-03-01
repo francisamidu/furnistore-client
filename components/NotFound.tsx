@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from "react";
 import { AiFillHome } from "react-icons/ai";
-import Button from "./Button";
+import { Button } from ".";
 
 type NotFoundProps = {
   text: string;

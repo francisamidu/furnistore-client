@@ -79,20 +79,20 @@ const CartProduct = (props: CartProductProps) => {
       </div>
       <div className="content col-start-2 col-end-3 p-2 pl-4">
         <p>
-          <span className="font-bold mr-2">Product Name</span>
-          <span className="capitalize">: {name}</span>
+          <span className="font-bold">Product Name:</span>
+          <span className="capitalize ml-2"> {name}</span>
         </p>
         <p>
-          <span className="font-bold mr-2">Product ID</span>
-          <span>: {id}</span>
+          <span className="font-bold">Product ID:</span>
+          <span className="ml-2"> #{id}</span>
         </p>
         <p>
-          <span className="font-bold mr-2">Product Size</span>
-          <span className="capitalize">: {size}</span>
+          <span className="font-bold">Product Size:</span>
+          <span className="capitalize ml-2">{size}</span>
         </p>
         <p>
-          <span className="font-bold mr-2">Product Color</span>
-          <span className="capitalize">: {color}</span>
+          <span className="font-bold">Product Color:</span>
+          <span className="capitalize ml-2"> {color}</span>
         </p>
       </div>
       <div className="details col-start-3 col-end-4 flex flex-col items-end">

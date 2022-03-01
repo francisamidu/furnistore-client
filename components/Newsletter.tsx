@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Image from "next/image";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import Button from "./Button";
+import { Button } from ".";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");

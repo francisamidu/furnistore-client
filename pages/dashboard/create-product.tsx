@@ -1,6 +1,8 @@
 import React from "react";
-import CreateProductComponent from "../components/CreateProduct";
-import DashboardLayout from "../components/DashboardLayout";
+import {
+  CreateProduct as CreateProductComponent,
+  DashboardLayout,
+} from "../../components";
 
 import type { NextComponentType } from "next";
 

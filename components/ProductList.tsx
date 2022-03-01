@@ -4,16 +4,15 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { AiOutlineArrowRight } from "react-icons/ai";
 import Link from "next/link";
 import router from "next/router";
-import { BiChevronDown } from "react-icons/bi";
-import NotFound from "./NotFound";
 
+import { AiOutlineArrowRight } from "react-icons/ai";
+import { BiChevronDown } from "react-icons/bi";
 import type { Product as IProduct } from "../interfaces";
-import ProductItem from "./ProductItem";
 import { extractColors, extractSizes } from "../helpers";
-import { useProducts } from "../contexts/ProductContext";
+import { useProducts } from "../contexts/ProductsContext";
+import { ProductItem, NotFound } from ".";
 
 type ProductProps = {
   products: Array<IProduct>;

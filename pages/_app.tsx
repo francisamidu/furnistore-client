@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, useEffect } from "react";
 import type { NextPage } from "next";
 import { AppProps } from "next/app";
 
@@ -6,11 +6,15 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { persistor, store } from "../app/store";
 
-import ProductProvider from "../contexts/ProductContext";
-
 import "../styles/globals.css";
 import "../styles/dashboard.css";
 import "../node_modules/tailwindcss/tailwind.css";
+import {
+  AppProvider,
+  OrdersProvider,
+  ProductsProvider,
+  UsersProvider,
+} from "../contexts";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -22,14 +26,27 @@ type AppPropsWithLayout = AppProps & {
 
 const App = ({ Component, pageProps }: AppPropsWithLayout): unknown => {
   const getLayout = Component.getLayout ?? ((page) => page);
+  const ISSET = typeof window !== "undefined";
+  useEffect(() => {
+    persistor.pause();
+    if (ISSET) {
+      persistor.persist();
+    }
+  }, [ISSET]);
   return (
-    <ProductProvider>
-      <PersistGate loading={null} persistor={persistor}>
-        <Provider store={store}>
-          {getLayout(<Component {...pageProps} />)}
-        </Provider>
-      </PersistGate>
-    </ProductProvider>
+    <ProductsProvider>
+      <UsersProvider>
+        <OrdersProvider>
+          <AppProvider>
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}>
+                {getLayout(<Component {...pageProps} />)}
+              </PersistGate>
+            </Provider>
+          </AppProvider>
+        </OrdersProvider>
+      </UsersProvider>
+    </ProductsProvider>
   );
 };
 

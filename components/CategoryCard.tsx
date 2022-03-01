@@ -18,7 +18,7 @@ const CategoryCard = (props: PropsWithChildren<CategoryCardProps>) => {
       <div className="relative w-full min-h-320">
         <Image src={image} width="200" height="200" layout="fill" />
       </div>
-      <div className="div absolute -bottom-4 left-0 w-full">
+      <div className="w-full">
         <h1 className="text-2xl my-2">Save up to 40% on {name} products</h1>
         <Link href={`/products?category=${encodeURI(name)}`}>
           <a className="border-b-2 hover:border-black border-transparent transition-all duration-150">

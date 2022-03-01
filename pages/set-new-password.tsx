@@ -1,7 +1,9 @@
 import { NextComponentType } from "next";
 import React from "react";
-import AuthLayout from "../components/AuthLayout";
-import SetNewPasswordComponent from "../components/SetNewPassword";
+import {
+  AuthLayout,
+  SetNewPassword as SetNewPasswordComponent,
+} from "../components";
 
 const SetNewPassword = () => {
   return <SetNewPasswordComponent />;

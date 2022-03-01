@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import generateId from "../helpers/generateId";
+import { generateId } from "../helpers";
 import Feature from "./Feature";
 
 const Features = () => {

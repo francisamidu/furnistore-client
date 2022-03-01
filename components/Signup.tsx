@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from "react";
-import Button from "../components/Button";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { Button } from ".";
 
 import { useSignupMutation } from "../services";
 

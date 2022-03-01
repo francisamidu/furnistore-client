@@ -5,6 +5,7 @@ import AuthIllustration from "../public/authentication.svg";
 import AuthTopBar from "./AuthTopBar";
 
 import { AppProps } from "next/app";
+import { useApp } from "../contexts";
 type AuthLayoutProps = {
   pageName: string;
   page: string;
@@ -14,13 +15,16 @@ const AuthLayout = (
   props: Partial<PropsWithChildren<AppProps>> & AuthLayoutProps
 ) => {
   const { children, pageName, page } = props;
+  const { name } = useApp();
   return (
     <>
       <Head>
-        <title>{pageName} - Furnistore Authentication</title>
+        <title>
+          {pageName} - {name} Authentication
+        </title>
         <meta content={pageName} name="page-name"></meta>
       </Head>
-      <AuthTopBar pageName={pageName} page={page} />
+      <AuthTopBar page={page} />
       <section>
         <div className="signup-content max-w-screen-md m-auto sm:justify-center  grid grid-cols-4 py-8 px-12 content-center">
           <Image

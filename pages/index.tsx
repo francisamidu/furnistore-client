@@ -1,12 +1,11 @@
 import { NextComponentType } from "next";
 import React from "react";
-import Index from "../components/Index";
-import HomeLayout from "../components/HomeLayout";
+import { Home, HomeLayout } from "../components";
 
-const Home = () => {
-  return <Index />;
+const Index = () => {
+  return <Home />;
 };
-Home.getLayout = (page: NextComponentType) => {
+Index.getLayout = (page: NextComponentType) => {
   return <HomeLayout>{page}</HomeLayout>;
 };
-export default Home;
+export default Index;

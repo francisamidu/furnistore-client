@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Column from "./Column";
 import Icon from "./Icon";
 
-import generateId from "../helpers/generateId";
+import { generateId } from "../helpers";
 import type ColumnType from "../types/ColumnProps";
 
 const Footer = () => {
