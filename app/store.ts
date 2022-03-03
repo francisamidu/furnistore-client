@@ -66,7 +66,8 @@ export const store: Store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(rtkQueryErrorLogger),
+    }),
+  // .concat(rtkQueryErrorLogger),
 });
 
 export const persistor = persistStore(store);
