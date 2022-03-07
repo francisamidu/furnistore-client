@@ -21,7 +21,7 @@ const Products = () => {
     } else {
       setLocalProducts(products);
     }
-  }, [products, query]);
+  }, [products, query, category]);
   const goHome = () => {
     router.push("/");
   };

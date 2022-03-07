@@ -145,6 +145,7 @@ const Analytics = () => {
               className={`text-gray-400 col-start-${
                 index === 0 ? 1 : ++index
               } col-end-${index === 0 ? 2 : ++index}`}
+              key={index}
             >
               {header}
             </span>
@@ -168,7 +169,10 @@ const Analytics = () => {
                   : "bg-blue-50",
             };
             return (
-              <div className="py-4 grid border-b-[1px] border-gray-300 bg-white analytic-order-item">
+              <div
+                key={orderId}
+                className="py-4 grid border-b-[1px] border-gray-300 bg-white analytic-order-item"
+              >
                 <p className="col-start-1 col-end-2">{date}</p>
                 <p className="col-start-2 col-end-3">{productName}</p>
                 <p className="col-start-3 col-end-4">{productPrice}</p>

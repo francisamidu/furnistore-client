@@ -70,12 +70,17 @@ const CartProduct = (props: CartProductProps) => {
   };
   useEffect(() => {
     setTotalPriceState();
-  }, [product.quantity]);
+  }, [product.quantity, setTotalPriceState]);
 
   return (
     <div className="cart-product grid py-2 border-gray-200 ">
       <div className="relative">
-        <Image src={image} layout="fill" className="col-start-1 col-end-2" />
+        <Image
+          src={image}
+          layout="fill"
+          className="col-start-1 col-end-2"
+          alt="Cart Image"
+        />
       </div>
       <div className="content col-start-2 col-end-3 p-2 pl-4">
         <p>

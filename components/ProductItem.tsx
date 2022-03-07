@@ -72,6 +72,7 @@ const ProductItem = (props: PropsWithChildren<ProductItemProps>) => {
             width={page === "products" ? "320" : "300"}
             height="200"
             className="rounded w-full"
+            alt="Product Illustration"
           />
           {renderBadge()}
         </div>

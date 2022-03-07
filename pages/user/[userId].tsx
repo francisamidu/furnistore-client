@@ -33,6 +33,7 @@ const User = () => {
               width="50"
               height="50"
               src={avatar}
+              alt="Avatar Illustration"
               className="rounded-full"
             />
             <p className="flex flex-col ml-3">
@@ -117,6 +118,7 @@ const User = () => {
                 width="200"
                 height="200"
                 className="rounded-full border-5 border-white cursor-pointer"
+                alt="Avatar Illustration"
                 src={avatar}
               />
               <Button text="Update" className="justify-self-end" />

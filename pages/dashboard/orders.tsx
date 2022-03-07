@@ -123,7 +123,7 @@ const Orders = () => {
       </div>
       <div className={`grid grid-cols-${orders.length} max-w-full`}>
         {orders.map((order, index) => {
-          const { amount, name, percentile } = order;
+          const { id, amount, name, percentile } = order;
           const statusColor = {
             text:
               name === "Pending Orders"
@@ -140,6 +140,7 @@ const Orders = () => {
           };
           return (
             <div
+              key={id}
               className={`flex flex-1 flex-col mr-2 ${
                 statusColor.bg
               } py-4 px-4 rounded-md shadow col-start-${

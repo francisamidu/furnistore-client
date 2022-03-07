@@ -33,7 +33,13 @@ const TransactionWidget = ({
   return (
     <div className="grid trans-widget py-1 mb-2">
       <div className="flex flex-row items-center col-start-1 col-end-2">
-        <Image width="45" height="45" className="rounded-full" src={avatar} />
+        <Image
+          width="45"
+          height="45"
+          className="rounded-full"
+          src={avatar}
+          alt="Avatar Illustration"
+        />
         <span className="capitalize ml-2">{name}</span>
       </div>
       <span className="col-start-2 col-end-3 flex flex-row items-center">

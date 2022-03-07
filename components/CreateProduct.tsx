@@ -55,7 +55,7 @@ const CreateProduct = () => {
     if (isNew) {
       setActionText("Update Product");
     }
-  });
+  }, [product]);
   useEffect(() => {
     if (isLoading) {
       console.log("Uploading...");
@@ -85,7 +85,15 @@ const CreateProduct = () => {
     if (isError) {
       console.log(`Whoops! ${JSON.stringify(error)}`);
     }
-  }, [isLoading, isSuccess, isError, data]);
+  }, [
+    isLoading,
+    isSuccess,
+    isError,
+    data,
+    error,
+    finishProductCreation,
+    product,
+  ]);
 
   return (
     <section className="dashboard-content bg-white">

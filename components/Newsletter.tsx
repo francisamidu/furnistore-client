@@ -33,6 +33,7 @@ const Newsletter = () => {
           src="/undraw_watch_application_uhc9.svg"
           width="400"
           height="400"
+          alt="Watch Illustration"
           className="hidden"
         />
       </div>

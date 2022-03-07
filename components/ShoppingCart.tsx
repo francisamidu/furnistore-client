@@ -56,7 +56,7 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     setTotal();
-  }, [products]);
+  }, [products, setTotal]);
 
   useEffect(() => {
     console.log(res);
@@ -65,7 +65,7 @@ const ShoppingCart = () => {
   useEffect(() => {
     setVat(total > 10000 ? total / 17 : vat);
     console.log(vat);
-  }, [total]);
+  }, [total, setVat]);
   return (
     <section className="py-4 grid shopping-cart md:max-w-screen-xl m-auto">
       {products?.length < 1 ? (

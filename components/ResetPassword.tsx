@@ -18,8 +18,8 @@ const ResetPassword = () => {
         Welcome, Enter your email below
       </h1>
       <h2 className="text-1xl text-gray-500 mb-8">
-        We'll send over an OTP for verification. This OTP will only be valid for
-        an hour
+        {"We'll"} send over an OTP for verification. This OTP will only be valid
+        for an hour
       </h2>
       <div className="input-group my-4 w-full">
         <input

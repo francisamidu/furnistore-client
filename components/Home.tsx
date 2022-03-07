@@ -13,9 +13,9 @@ const Index = () => {
   const { data }: any = query;
   useEffect(() => {
     if (data?.products) {
-      categories = extractCategories(data.products);
       setProducts(serializeProducts(data.products));
     }
+    categories = extractCategories(data.products);
   }, [data]);
   return (
     <>

@@ -21,6 +21,7 @@ const CustomErrorPage = (props: Partial<AppProps> & CustomErrorPageProps) => {
           width="500"
           height="500"
           layout="fill"
+          alt="Error Illustration"
         />
       </div>
       <div className="flex flex-col justify-center items-center sm:items-start sm:py-4 sm:my-4 item-not-found sm:min-h-70 sm:col-start-2 sm:col-end-3 col-span-1 text-center sm:text-left">

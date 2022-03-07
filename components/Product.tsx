@@ -91,7 +91,7 @@ const Product = (props: ProductProps) => {
 
   useEffect(() => {
     setCartProductAndProduct();
-  }, [props.product]);
+  }, [props.product, setCartProductAndProduct]);
 
   const getTotalPrice = () => {
     const number = totalPrice || 0;
@@ -136,7 +136,7 @@ const Product = (props: ProductProps) => {
   };
   useEffect(() => {
     setTotalPriceState();
-  }, [product.quantity]);
+  }, [product.quantity, setTotalPriceState]);
 
   return (
     <section className="py-4 grid grid-cols-2 sm:max-w-screen-lg sm:m-auto">
@@ -145,7 +145,13 @@ const Product = (props: ProductProps) => {
         onClick={goHome}
       />
       <div className="col-start-1 col-end-2 mr-4">
-        <Image src={image} width="500" height="500" className="rounded" />
+        <Image
+          src={image}
+          width="500"
+          height="500"
+          alt="Product Illustration"
+          className="rounded"
+        />
       </div>
       <div className="col-start-2 col-end-3 px-4">
         <div className="mb-4 flex flex-row items-center">

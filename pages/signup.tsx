@@ -59,6 +59,7 @@ const Signup = () => {
       <div className="content md:max-w-screen-md m-auto  grid grid-cols-4 py-8 px-12 content-center">
         <Image
           src={AuthIllustration}
+          alt="Auth Illustration"
           height="200"
           width="200"
           className="col-start-2 col-end-3"

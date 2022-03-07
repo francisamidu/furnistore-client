@@ -15,7 +15,13 @@ const UserWidget = ({ user: { avatar, name, role } }: UserWidgetProps) => {
   return (
     <div className="grid user-widget mb-2 place-content-center">
       <div className="col-start-1 col-end-2">
-        <Image width="45" height="45" className="rounded-full" src={avatar} />
+        <Image
+          width="45"
+          height="45"
+          alt="Avatar Illustration"
+          className="rounded-full"
+          src={avatar}
+        />
       </div>
       <p className="flex flex-col col-start-2 col-end-3">
         <span className="font-bold">{name}</span>

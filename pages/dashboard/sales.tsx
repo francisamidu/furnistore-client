@@ -142,11 +142,14 @@ const Sales = () => {
         Welcome Back, <span className="font-normal">Neilah</span>
       </h1>
       <h2 className="mt-4 text-dark-blue">
-        Check what's happening in your store update
+        Check {"what's"} happening in your store update
       </h2>
       <div className="grid sales-cards mt-4">
         {sales.map((item) => (
-          <div className="rounded-md bg-white shadow flex flex-col p-5">
+          <div
+            className="rounded-md bg-white shadow flex flex-col p-5"
+            key={item.id}
+          >
             <div className="flex flex-row items-center justify-between">
               <div className="rounded-full border-[1.5px] border-gray-200 p-3">
                 {item.icon}
@@ -182,6 +185,7 @@ const Sales = () => {
               className={`text-gray-400 uppercase text-xs font-bold col-start-${
                 index === 0 ? 1 : ++index
               } col-end-${index === 0 ? 2 : ++index}`}
+              key={index}
             >
               {header}
             </span>

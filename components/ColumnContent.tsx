@@ -19,7 +19,7 @@ const ColumnContent = (props: ColumnContentProps) => {
         rel="noopener noreferrer"
         className="mt-4"
       >
-        <Image src={icon} width="200" height="70" />
+        <Image src={icon} width="200" height="70" alt="Icon" />
       </a>
     </div>
   );
