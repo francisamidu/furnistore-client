@@ -22,7 +22,7 @@ const ProductPage = () => {
   if (response?.data?.product) {
     product = {
       ...response.data.product,
-      id: response.data.product._id,
+      id: response.data.product._id || "",
     };
   }
   if (product) {

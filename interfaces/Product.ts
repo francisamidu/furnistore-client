@@ -1,5 +1,6 @@
 export default interface Product {
   id: string;
+  _id?: string;
   description: string;
   name: string;
   colors: string[];
