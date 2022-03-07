@@ -17,7 +17,7 @@ const ProductPage = () => {
 
   const { query } = router;
   const productId: any = query?.productId;
-  const response = productId && useGetProductQuery(productId);
+  const response = useGetProductQuery(productId);
   let product = null;
   if (response?.data?.product) {
     product = {
