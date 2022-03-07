@@ -4,8 +4,6 @@ import { extractAuthData } from "../../helpers";
 import { useAppSelector } from "../../hooks";
 
 const Dashboard = () => {
-  const auth = useAppSelector((state) => state.auth.mutations);
-  console.log(auth);
   return <Home />;
 };
 
