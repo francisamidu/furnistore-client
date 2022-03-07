@@ -6,7 +6,7 @@ import { CartRequest } from "../types";
 
 export const cartApi = createApi({
   baseQuery: graphqlRequestBaseQuery({
-    url: "http://localhost:5000/graphql",
+    url: `${process.env.NEXT_PUBLIC_SERVERL_URL}`,
   }),
   reducerPath: "cartItems",
   endpoints: (builder) => ({

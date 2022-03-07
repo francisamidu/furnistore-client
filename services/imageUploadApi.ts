@@ -4,7 +4,7 @@ import type { ImageRequest, ImageResponse } from "../interfaces";
 
 export const imageUploadApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000",
+    baseUrl: `${process.env.NEXT_PUBLIC_SERVERL_URL}`,
   }),
   reducerPath: "image",
   endpoints: (builder) => ({

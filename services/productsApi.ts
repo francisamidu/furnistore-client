@@ -6,7 +6,7 @@ import { Sale } from "../types";
 
 export const productsApi = createApi({
   baseQuery: graphqlRequestBaseQuery({
-    url: "http://localhost:5000/graphql",
+    url: `${process.env.NEXT_PUBLIC_SERVERL_URL}/graphql`,
   }),
   reducerPath: "products",
   endpoints: (builder) => ({

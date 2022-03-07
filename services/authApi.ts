@@ -6,7 +6,7 @@ import User from "../interfaces/User";
 export const authApi = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://localhost:5000/auth`,
+    baseUrl: `${process.env.NEXT_PUBLIC_SERVERL_URL}`,
   }),
   endpoints: (builder) => ({
     login: builder.mutation<Partial<User>, any>({
