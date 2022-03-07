@@ -1,13 +1,27 @@
 import { AnyAction, Reducer } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
+import { HYDRATE } from "next-redux-wrapper";
+import storage from "./storage";
 
 import { RootState } from "./store";
 
 //Clears persisted storage
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
-  if (state === undefined || action.type === "root/clearStorage") {
-    storage.removeItem("persist:root");
-    state = {} as RootState;
+  switch (action.type) {
+    case HYDRATE: {
+      const nextState = {
+        ...state,
+        ...action.payload,
+      };
+      return nextState;
+    }
+    case "CLEAR": {
+      storage.removeItem("persist:root");
+      state = {} as RootState;
+      return state;
+    }
+    default: {
+      return state;
+    }
   }
   return state;
 };
