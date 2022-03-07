@@ -42,7 +42,6 @@ import Sidebar from "./Sidebar";
 import SidebarLink from "./SidebarLink";
 import Signup from "./Signup";
 import TabWrapper from "./TabWrapper";
-import VerifyOTP from "./VerifyOTP";
 import Wishlist from "./Wishlist";
 import Chart from "./Chart";
 import ComingSoon from "./ComingSoon";
@@ -106,6 +105,5 @@ export {
   TabWrapper,
   TransactionWidget,
   UserWidget,
-  VerifyOTP,
   Wishlist,
 };
