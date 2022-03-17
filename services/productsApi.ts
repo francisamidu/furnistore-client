@@ -3,10 +3,11 @@ import { graphqlRequestBaseQuery } from "@rtk-query/graphql-request-base-query";
 import type { Product, ProductRequest } from "../interfaces";
 import gql from "graphql-tag";
 import { Sale } from "../types";
+import { config } from "../config";
 
 export const productsApi = createApi({
   baseQuery: graphqlRequestBaseQuery({
-    url: `${process.env.NEXT_PUBLIC_SERVERL_URL}/graphql`,
+    url: `${config.NEXT_PUBLIC_SERVER_URL}/graphql`,
   }),
   reducerPath: "products",
   endpoints: (builder) => ({

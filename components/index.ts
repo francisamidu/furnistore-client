@@ -11,7 +11,6 @@ import Column from "./Column";
 import ColumnContent from "./ColumnContent";
 import ColumnHeading from "./ColumnHeading";
 import ColumnLink from "./ColumnLink";
-import CreateProduct from "./CreateProduct";
 import CustomSelect from "./CustomSelect";
 import DashboardLayout from "./DashboardLayout";
 import DealBar from "./DealBar";
@@ -21,7 +20,6 @@ import FeaturedInfo from "./FeaturedInfo";
 import FeaturedItem from "./FeaturedItem";
 import Features from "./Features";
 import Footer from "./Footer";
-import DashboardHome from "./DashboardHome";
 import HomeHeader from "./HomeHeader";
 import HomeLayout from "./HomeLayout";
 import HomeLink from "./HomeLink";
@@ -68,10 +66,8 @@ export {
   ColumnHeading,
   ColumnLink,
   ComingSoon,
-  CreateProduct,
   CustomSelect,
   DashboardLayout,
-  DashboardHome,
   DealBar,
   ErrorPage,
   Feature,

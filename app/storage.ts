@@ -16,7 +16,7 @@ const createNoopStorage = () => {
 
 const storage =
   typeof window !== "undefined"
-    ? createWebStorage("root")
+    ? createWebStorage("nextjs")
     : createNoopStorage();
 
 export default storage;

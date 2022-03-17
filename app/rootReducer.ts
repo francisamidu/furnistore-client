@@ -20,6 +20,7 @@ const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
       return state;
     }
     default: {
+      state = {} as RootState;
       return state;
     }
   }
